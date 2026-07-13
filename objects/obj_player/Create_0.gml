@@ -13,6 +13,11 @@ grav = 0.2;
 // pulo
 z = 0;
 
+inventario = [];
+
+mostrar_inventario = false;
+indice_selecionado = 0;
+
 // variaveis de controle
 up	     = noone;
 left	 = noone;
@@ -20,6 +25,8 @@ down	 = noone;
 right	 = noone;
 jump	 = noone;
 attack	 = noone;
+
+buffer_attack = false;
 
 
 // função de controle
@@ -73,20 +80,32 @@ p_attack = function() {
 	
 	var _attack = mouse_check_button_pressed(mb_left);
 	
+	if (buffer_attack = true) { _attack = true; } 
+	else {	buffer_attack = mouse_check_button_pressed(mb_left); }
+	
 	if (sprite_index != spr_player_punch1 && sprite_index != spr_player_punch2) {
 		sprite_index = spr_player_punch1;
 		image_index = 0;
 	}
 	
-	if (_attack) {
+	if (_attack && image_index >= image_number -1) {
 		if (sprite_index == spr_player_punch1) {
 			sprite_index = spr_player_punch2;
 			image_index = 0;
+			buffer_attack = false;
 		}
+		
+		/*if (sprite_index == spr_player_punch2 && buffer_attack) {
+			sprite_index = spr_player_punch1;
+			image_index = 0;
+			buffer_attack = false;
+		}*/
 	}
 	
+	// saindo do estado
 	if (image_index >= image_number - 1) {
 		estado = p_idle;
+		buffer_attack = false;
 	}
 }
 
