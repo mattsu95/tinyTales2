@@ -13,6 +13,11 @@ grav = 0.2;
 // pulo
 z = 0;
 
+inventario = [];
+
+mostrar_inventario = false;
+indice_selecionado = 0;
+
 // variaveis de controle
 up	     = noone;
 left	 = noone;
