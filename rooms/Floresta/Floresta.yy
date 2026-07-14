@@ -107,8 +107,8 @@
   ],
   "name":"Floresta",
   "parent":{
-    "name":"tiniEmUp",
-    "path":"tiniEmUp.yyp",
+    "name":"Cenas",
+    "path":"folders/Cenas.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
