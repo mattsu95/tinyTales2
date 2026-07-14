@@ -1,0 +1,1 @@
+obj_player.estado = obj_player.p_fuga;

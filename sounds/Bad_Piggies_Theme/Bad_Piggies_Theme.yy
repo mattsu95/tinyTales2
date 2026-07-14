@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Bad_Piggies_Theme",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":160.68025,
+  "exportDir":"",
+  "name":"Bad_Piggies_Theme",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Bad_Piggies_Theme.mp3",
+  "volume":1.0,
+}

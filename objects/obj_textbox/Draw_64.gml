@@ -8,7 +8,7 @@ var _gui_w = 480;
 
 // --- AJUSTE DA FONTE E TAMANHO DA CAIXA ---
 var _escala_fonte = 0.75;
-draw_set_font(-1); // Usa a fonte atual do jogo
+draw_set_font(fnt_dialogo); // Usa a fonte atual do jogo
 
 // Calcula a largura real do texto já escalado em 0.75
 var _largura_do_texto = string_width(_fala.texto) * _escala_fonte;

@@ -1,21 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_dog",
+  "%Name":"obj_cutscene_dog",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_dog",
+  "name":"obj_cutscene_dog",
   "overriddenProperties":[],
   "parent":{
     "name":"Dogs",
-    "path":"folders/Objects/Dogs.yy",
+    "path":"folders/Scripts/Cutscenes/Dogs.yy",
   },
-  "parentObjectId":{
-    "name":"obj_entity",
-    "path":"objects/obj_entity/obj_entity.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -37,9 +34,6 @@
     "name":"spr_dog1_idle",
     "path":"sprites/spr_dog1_idle/spr_dog1_idle.yy",
   },
-  "spriteMaskId":{
-    "name":"spr_dog1_idle",
-    "path":"sprites/spr_dog1_idle/spr_dog1_idle.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }
