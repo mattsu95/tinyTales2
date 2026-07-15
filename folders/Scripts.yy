@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Scripts",
+  "children":[],
+  "filterType":"",
+  "folderName":"Scripts",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Scripts",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

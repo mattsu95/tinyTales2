@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"ElementosTinyTales",
+  "children":[],
+  "filterType":"",
+  "folderName":"ElementosTinyTales",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"ElementosTinyTales",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

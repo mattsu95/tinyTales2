@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Cenas",
+  "children":[],
+  "filterType":"",
+  "folderName":"Cenas",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Cenas",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44c8e15d-741b-40eb-a9a5-7784b2664580" name="Changes" comment="Cenas e ajuste de conflito">
-      <change beforePath="$PROJECT_DIR$/rooms/Floresta/Floresta.yy" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/Floresta/Floresta.yy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects/obj_obstaculo/obj_obstaculo.yy" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_obstaculo/obj_obstaculo.yy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects/obj_player/Create_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_player/Create_0.gml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects/obj_player/Step_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_player/Step_0.gml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/Unioeste1/Unioeste1.yy" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/Unioeste1/Unioeste1.yy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tilesets/tl_level/output_tileset.png" beforeDir="false" afterPath="$PROJECT_DIR$/tilesets/tl_level/output_tileset.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tiniEmUp.yyp" beforeDir="false" afterPath="$PROJECT_DIR$/tiniEmUp.yyp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="dogs" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,14 +38,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -75,6 +81,17 @@
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"FlorestaInicio",
+  "children":[],
+  "filterType":"",
+  "folderName":"FlorestaInicio",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"FlorestaInicio",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

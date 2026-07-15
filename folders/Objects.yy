@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Objects",
+  "children":[],
+  "filterType":"",
+  "folderName":"Objects",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Objects",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Cutscenes",
+  "children":[],
+  "filterType":"",
+  "folderName":"Cutscenes",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Cutscenes",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

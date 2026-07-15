@@ -1,13 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"obj_cutscene_dog",
+  "%Name":"obj_obstaculo",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_cutscene_dog",
+  "name":"obj_obstaculo",
   "overriddenProperties":[],
   "parent":{
     "name":"Dogs",
@@ -32,9 +31,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_dog1_idle",
-    "path":"sprites/spr_dog1_idle/spr_dog1_idle.yy",
+    "name":"Closed_Trashbin",
+    "path":"sprites/Closed_Trashbin/Closed_Trashbin.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"Closed_Trashbin",
+    "path":"sprites/Closed_Trashbin/Closed_Trashbin.yy",
+  },
   "visible":true,
 }
