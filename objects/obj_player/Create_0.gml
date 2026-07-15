@@ -37,6 +37,7 @@ jump   = noone;
 attack = noone;
 
 buffer_attack = false;
+attack_sequence_id = 0;
 timer_fuga = 0;        // Cronômetro para disparar o evento do novo inimigo
 tempo_limite_fuga = 5; // Tempo padrão (caso nenhuma cutscene defina um tempo diferente)
 
@@ -162,12 +163,14 @@ p_attack = function() {
 	if (sprite_index != spr_player_punch1 && sprite_index != spr_player_punch2) {
 		sprite_index = spr_player_punch1;
 		image_index = 0;
+		attack_sequence_id++;
 	}
 	
 	if (_attack && image_index >= image_number - 1) {
 		if (sprite_index == spr_player_punch1) {
 			sprite_index = spr_player_punch2;
 			image_index = 0;
+			attack_sequence_id++;
 			buffer_attack = false;
 		}
 	}
