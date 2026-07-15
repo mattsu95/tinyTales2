@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Player",
+  "children":[],
+  "filterType":"",
+  "folderName":"Player",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Player",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

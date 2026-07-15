@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Menu",
+  "children":[],
+  "filterType":"",
+  "folderName":"Menu",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Menu",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

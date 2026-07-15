@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Level",
+  "children":[],
+  "filterType":"",
+  "folderName":"Level",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Level",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"CoisasDeCidade",
+  "children":[],
+  "filterType":"",
+  "folderName":"CoisasDeCidade",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"CoisasDeCidade",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Sounds",
+  "children":[],
+  "filterType":"",
+  "folderName":"Sounds",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Sounds",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

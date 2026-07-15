@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Sprites_AmbientaÃ§Ã£o",
+  "children":[],
+  "filterType":"",
+  "folderName":"Sprites_AmbientaÃ§Ã£o",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Sprites_AmbientaÃ§Ã£o",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

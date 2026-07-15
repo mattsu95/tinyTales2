@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Enemy",
+  "children":[],
+  "filterType":"",
+  "folderName":"Enemy",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Enemy",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

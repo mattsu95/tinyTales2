@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Sprites",
+  "children":[],
+  "filterType":"",
+  "folderName":"Sprites",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Sprites",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

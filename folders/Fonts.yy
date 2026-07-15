@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Fonts",
+  "children":[],
+  "filterType":"",
+  "folderName":"Fonts",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Fonts",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

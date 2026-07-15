@@ -1,0 +1,12 @@
+﻿{
+  "":"",
+  "%Name":"Inimigos",
+  "children":[],
+  "filterType":"",
+  "folderName":"Inimigos",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Inimigos",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}
