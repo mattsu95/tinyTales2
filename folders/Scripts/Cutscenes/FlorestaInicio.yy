@@ -1,5 +1,5 @@
 ﻿{
-  "":"",
+  "$GMFolder":"",
   "%Name":"FlorestaInicio",
   "children":[],
   "filterType":"",

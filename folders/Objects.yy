@@ -1,5 +1,5 @@
 ﻿{
-  "":"",
+  "$GMFolder":"",
   "%Name":"Objects",
   "children":[],
   "filterType":"",

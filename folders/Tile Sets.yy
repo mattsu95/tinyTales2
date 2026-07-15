@@ -1,5 +1,5 @@
 ﻿{
-  "":"",
+  "$GMFolder":"",
   "%Name":"Tile Sets",
   "children":[],
   "filterType":"",

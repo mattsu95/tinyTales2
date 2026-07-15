@@ -1,5 +1,5 @@
 ﻿{
-  "":"",
+  "$GMFolder":"",
   "%Name":"Sprites_AmbientaÃ§Ã£o",
   "children":[],
   "filterType":"",

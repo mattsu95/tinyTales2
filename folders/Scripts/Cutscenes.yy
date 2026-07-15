@@ -1,5 +1,5 @@
 ﻿{
-  "":"",
+  "$GMFolder":"",
   "%Name":"Cutscenes",
   "children":[],
   "filterType":"",

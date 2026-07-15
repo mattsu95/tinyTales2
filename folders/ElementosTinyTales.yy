@@ -1,5 +1,5 @@
 ﻿{
-  "":"",
+  "$GMFolder":"",
   "%Name":"ElementosTinyTales",
   "children":[],
   "filterType":"",
