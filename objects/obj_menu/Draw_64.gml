@@ -27,10 +27,10 @@ for (var i = 0; i < menu_len; i++) {
 	if (point_in_rectangle(_mx, _my, x1, y1, x2, y2)) {
 		escala[i] = lerp(escala[i], 1.4, 0.15);
 		
-		if (mouse_check_button_pressed(mb_left)) {
+		if (device_mouse_check_button_pressed(0, mb_left)) {
 			switch (menu_opt[i]) {
 				case menu_opt[0]: // jogar
-					room_goto(Room1);
+					room_goto(Floresta);
 					break;
 				case menu_opt[1]: // opções
 					show_message("você é bagre!");
