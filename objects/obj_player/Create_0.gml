@@ -5,11 +5,23 @@ velh = 0;
 velv = 0;
 velz = 0;
 
-vel_max	 = 3.5; // Velocidade máxima de corrida
+vel_walk = 2.0; // Velocidade padrão de caminhada
+vel_run  = 3.5; // Velocidade de corrida (duplo toque)
+vel_fuga = 3.5; // Velocidade fixa no modo fuga
+vel_max  = vel_run; // Mantido para compatibilidade com outras rotinas
 vel_jump = 5;   // Força do pulo
 grav     = 0.2; // Gravidade aplicada no eixo Z
 z        = 0;   // Altura do pulo
 is_on_air = false;
+
+tap_window = 12; // Janela (em frames) para detectar duplo toque
+tap_left_timer  = 0;
+tap_right_timer = 0;
+tap_up_timer    = 0;
+tap_down_timer  = 0;
+
+is_running = false;
+run_dir = 0; // 0=nenhuma, 1=left, 2=right, 3=up, 4=down
 
 // --- SISTEMA DE INVENTÁRIO (Mesclado do Bloco 1) ---
 inventario = [];
@@ -39,8 +51,61 @@ control_player = function() {
 	jump   = keyboard_check_pressed(vk_space);
 	attack = mouse_check_button_pressed(mb_left);
 
-	velh = (right - left) * vel_max;
-	velv = (down - up) * vel_max;
+	if (tap_left_timer  > 0) tap_left_timer--;
+	if (tap_right_timer > 0) tap_right_timer--;
+	if (tap_up_timer    > 0) tap_up_timer--;
+	if (tap_down_timer  > 0) tap_down_timer--;
+
+	if (keyboard_check_pressed(ord("A"))) {
+		if (tap_left_timer > 0) {
+			is_running = true;
+			run_dir = 1;
+		}
+		tap_left_timer = tap_window;
+	}
+
+	if (keyboard_check_pressed(ord("D"))) {
+		if (tap_right_timer > 0) {
+			is_running = true;
+			run_dir = 2;
+		}
+		tap_right_timer = tap_window;
+	}
+
+	if (keyboard_check_pressed(ord("W"))) {
+		if (tap_up_timer > 0) {
+			is_running = true;
+			run_dir = 3;
+		}
+		tap_up_timer = tap_window;
+	}
+
+	if (keyboard_check_pressed(ord("S"))) {
+		if (tap_down_timer > 0) {
+			is_running = true;
+			run_dir = 4;
+		}
+		tap_down_timer = tap_window;
+	}
+
+	if ((left + right + up + down) == 0) {
+		is_running = false;
+		run_dir = 0;
+	}
+
+	if (is_running) {
+		switch (run_dir) {
+			case 1: if (!left)  is_running = false; break;
+			case 2: if (!right) is_running = false; break;
+			case 3: if (!up)    is_running = false; break;
+			case 4: if (!down)  is_running = false; break;
+		}
+		if (!is_running) run_dir = 0;
+	}
+
+	var _speed = is_running ? vel_run : vel_walk;
+	velh = (right - left) * _speed;
+	velv = (down - up) * _speed;
 }
 
 // Função de controle exclusiva para o modo de fuga (Corrida infinita)
@@ -50,7 +115,7 @@ control_fuga = function() {
     jump = keyboard_check_pressed(vk_space);
 
     // Força o X a sempre correr na velocidade máxima de fuga (3.5)
-    velh = vel_max; 
+	velh = vel_fuga; 
     
     // Você controla o desvio vertical de forma suave (2)
     velv = (down - up) * 2; 
