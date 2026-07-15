@@ -40,6 +40,13 @@ buffer_attack = false;
 attack_sequence_id = 0;
 timer_fuga = 0;        // Cronômetro para disparar o evento do novo inimigo
 tempo_limite_fuga = 5; // Tempo padrão (caso nenhuma cutscene defina um tempo diferente)
+inimigo_ja_apareceu = false;
+// Guarda a coordenada X da nossa parede invisível (começa com um valor negativo para não atrapalhar o início do jogo)
+parede_invisivel_x = -10000;
+atordoado = false;
+timer_atordoado = 0;
+perda_velocidade = 0; // O quanto ele perde de velocidade ao bater
+
 
 // --- FUNÇÕES DE CONTROLE ---
 
@@ -115,10 +122,15 @@ control_fuga = function() {
     down = keyboard_check(ord("S"));
     jump = keyboard_check_pressed(vk_space);
 
+    // Se estiver atordoado, subtrai a perda de velocidade do limite máximo
+    var _vel_atual = vel_max - perda_velocidade;
     // Força o X a sempre correr na velocidade máxima de fuga (3.5)
-	velh = vel_fuga; 
-    
-    // Você controla o desvio vertical de forma suave (2)
+	velh = vel_fuga;
+
+    // Força o X a correr na velocidade atual calculada
+    velh = _vel_atual;
+
+    // Controle vertical de desvio
     velv = (down - up) * 2; 
 }
 
@@ -224,6 +236,8 @@ p_cutscene = function() {
         estado = p_idle;
     }
 }
+
+// CÓDIGO LIMPO DO P_FUGA NO OBJ_PLAYER
 p_fuga = function() {
     sprite_index = spr_player_walk;
     
@@ -232,15 +246,7 @@ p_fuga = function() {
     if (jump) { 
         estado = p_jump_fuga; 
     }
-    
-    // --- CONTA O TEMPO DINÂMICO DE JOGABILIDADE ---
-    timer_fuga++;
-    if (timer_fuga >= game_get_speed(gamespeed_fps) * tempo_limite_fuga) {
-        timer_fuga = 0; // Reseta o timer
-        
-        // Cria o controlador da nova cutscene dramática!
-        instance_create_layer(x, y, "Instances_1", obj_cutscene_enemy);
-    }
+    // Repare que sumiu todo aquele bloco de IF com cronômetro daqui!
 }
 
 p_jump_fuga = function() {

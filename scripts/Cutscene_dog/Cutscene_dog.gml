@@ -80,13 +80,13 @@ function cutscene_spawn_dogs(_quantidade) {
         exit;
     }
 
-    var _pos_nascimento_x = obj_player.x - 230; 
+    var _pos_nascimento_x = obj_player.x - 260; 
     var _pos_nascimento_y = obj_player.y;
     
     var _i = 0;
     repeat(_quantidade) {
         // Distância horizontal (X) entre eles na corrida
-        var _distancia_x = (_i * 25); // 40px mantém eles bem coladinhos como matilha
+        var _distancia_x = (_i * 10); // 40px mantém eles bem coladinhos como matilha
         
         // --- ESPALHANDO OS 5 CACHORROS NO EIXO Y ---
         var _distancia_y = 0;
@@ -107,34 +107,47 @@ function cutscene_spawn_dogs(_quantidade) {
     action_end();
 }
 
-// 3. Faz o player e os cachorros correrem juntos por um tempo
-// Novo parâmetro: _segundos_gameplay (quanto tempo o jogador joga antes do vilão aparecer)
-function cutscene_the_chase(_segundos, _player_spd, _dog_spd, _segundos_gameplay) {
-    // Durante a cena: player corre a 1.5 e dogs a 3.5 para eles se aproximarem
+// 1. Faz o player e os dogs correrem sozinhos lado a lado por um tempo
+function cutscene_the_chase(_segundos, _player_spd, _dog_spd) {
     obj_player.sprite_index = spr_player_walk;
     obj_player.x += _player_spd;
     
-    with(obj_dog) {
-        velocidade = _dog_spd; 
+    with(obj_dog) { velocidade = _dog_spd; }
+    
+    timer++;
+    if (timer >= game_get_speed(gamespeed_fps) * _segundos) {
+        timer = 0;
+        // Garante que os dogs continuem correndo depois dessa ação
+        with(obj_dog) { velocidade = _dog_spd; } 
+        action_end();
+    }
+}
+
+// 2. A MÁGICA: Devolve o controle para o jogador jogar no meio da cutscene!
+function cutscene_gameplay_fuga(_segundos) {
+    if (timer == 0) {
+        // Solta a coleira do player para ele desviar dos obstáculos
+        obj_player.estado = obj_player.p_fuga;
     }
     
     timer++;
     
     if (timer >= game_get_speed(gamespeed_fps) * _segundos) {
         timer = 0;
-        
-        // --- TRANSIÇÃO EM ALTA VELOCIDADE ---
-        // Passa o tempo dinâmico que você configurou na array para o player!
-        obj_player.tempo_limite_fuga = _segundos_gameplay;
-        obj_player.estado = obj_player.p_fuga;
-        
-        // Os cachorros mantêm a velocidade de 3.5 de forma constante
-        with(obj_dog) {
-            velocidade = _dog_spd; 
-        }
-        
+        // Acabou o tempo de jogo! Trava o player de novo para a cutscene do inimigo
+        obj_player.estado = obj_player.p_cutscene; 
         action_end();
     }
+}
+
+function cutscene_liberar_player() {
+    obj_player.estado = obj_player.p_idle;
+    
+    // --- CRIA A PAREDE INVISÍVEL ---
+    // Pega a posição X que o player terminou a corrida e bota a parede 20 pixels atrás dele
+    obj_player.parede_invisivel_x = obj_player.x - 20; 
+    
+    action_end();
 }
 
 // 1. Toca qualquer som passado por parâmetro
@@ -271,5 +284,49 @@ function cutscene_dialogueDog(_array_de_falas) {
     }
 }
 
-
-
+function cutscene_gameplay_fuga_com_dialogo(_segundos, _array_de_falas) {
+    if (timer == 0) {
+        obj_player.estado = obj_player.p_fuga;
+        
+        // Criamos o balão apenas no frame exato 0 e NUNCA MAIS verificamos isso
+        var _caixa = instance_create_layer(0, 0, "Instances_1", obj_textbox);
+        _caixa.falas = _array_de_falas;
+    }
+    
+    // --- SISTEMA DE SPAWN ALEATÓRIO ---
+    if (timer % 72 == 0) {
+        var _cam = view_camera[0];
+        var _cam_x = camera_get_view_x(_cam);
+        var _cam_w = camera_get_view_width(_cam);
+        
+        var _spawn_x = _cam_x + _cam_w + 40; 
+        
+        var _pista = irandom(2);
+        var _spawn_y = 100; 
+        
+        if (_pista == 1) _spawn_y = 157; 
+        if (_pista == 2) _spawn_y = 188; 
+        
+        instance_create_layer(_spawn_x, _spawn_y, "Instances_1", obj_obstaculo);
+    }
+    
+    timer++;
+    
+    if (timer >= game_get_speed(gamespeed_fps) * _segundos) {
+        timer = 0;
+        obj_player.estado = obj_player.p_cutscene; 
+        
+        // Desativa qualquer atordoamento ativo ao travar o player
+        obj_player.atordoado = false;
+        obj_player.perda_velocidade = 0;
+        obj_player.image_blend = c_white;
+        
+        if (instance_exists(obj_textbox)) {
+            instance_destroy(obj_textbox);
+        }
+        
+        with(obj_obstaculo) { instance_destroy(); }
+        
+        action_end();
+    }
+}
