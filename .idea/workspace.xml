@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44c8e15d-741b-40eb-a9a5-7784b2664580" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/tiniEmUp.yyp" beforeDir="false" afterPath="$PROJECT_DIR$/tiniEmUp.yyp" afterDir="false" />
-    </list>
+    <list default="true" id="44c8e15d-741b-40eb-a9a5-7784b2664580" name="Changes" comment="Cenas e ajuste de conflito" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,27 +13,27 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mapas/unioeste" />
+        <entry key="$PROJECT_DIR$" value="mattsu-menu" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="3GVrPG3NoBt5MM9K3dYSFKTmcUJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -45,6 +43,27 @@
       <option name="presentableId" value="Default" />
       <updated>1784067552863</updated>
     </task>
+    <task id="LOCAL-00001" summary="Cenas e ajuste de conflito">
+      <option name="closed" value="true" />
+      <created>1784143820408</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1784143820408</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Cenas e ajuste de conflito">
+      <option name="closed" value="true" />
+      <created>1784143829699</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1784143829700</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cenas e ajuste de conflito" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cenas e ajuste de conflito" />
   </component>
 </project>
