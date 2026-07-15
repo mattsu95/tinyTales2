@@ -5,11 +5,23 @@ velh = 0;
 velv = 0;
 velz = 0;
 
-vel_max	 = 3.5; // Velocidade máxima de corrida
+vel_walk = 2.0; // Velocidade padrão de caminhada
+vel_run  = 3.5; // Velocidade de corrida (duplo toque)
+vel_fuga = 3.5; // Velocidade fixa no modo fuga
+vel_max  = vel_run; // Mantido para compatibilidade com outras rotinas
 vel_jump = 5;   // Força do pulo
 grav     = 0.2; // Gravidade aplicada no eixo Z
 z        = 0;   // Altura do pulo
 is_on_air = false;
+
+tap_window = 12; // Janela (em frames) para detectar duplo toque
+tap_left_timer  = 0;
+tap_right_timer = 0;
+tap_up_timer    = 0;
+tap_down_timer  = 0;
+
+is_running = false;
+run_dir = 0; // 0=nenhuma, 1=left, 2=right, 3=up, 4=down
 
 // --- SISTEMA DE INVENTÁRIO (Mesclado do Bloco 1) ---
 inventario = [];
@@ -25,15 +37,14 @@ jump   = noone;
 attack = noone;
 
 buffer_attack = false;
+attack_sequence_id = 0;
 timer_fuga = 0;        // Cronômetro para disparar o evento do novo inimigo
 tempo_limite_fuga = 5; // Tempo padrão (caso nenhuma cutscene defina um tempo diferente)
 inimigo_ja_apareceu = false;
-// Guarda a coordenada X da nossa parede invisível (começa com um valor negativo para não atrapalhar o início do jogo)
 parede_invisivel_x = -10000;
 atordoado = false;
 timer_atordoado = 0;
-perda_velocidade = 0; // O quanto ele perde de velocidade ao bater
-
+perda_velocidade = 0;
 
 // --- FUNÇÕES DE CONTROLE ---
 
@@ -46,8 +57,61 @@ control_player = function() {
 	jump   = keyboard_check_pressed(vk_space);
 	attack = mouse_check_button_pressed(mb_left);
 
-	velh = (right - left) * vel_max;
-	velv = (down - up) * vel_max;
+	if (tap_left_timer  > 0) tap_left_timer--;
+	if (tap_right_timer > 0) tap_right_timer--;
+	if (tap_up_timer    > 0) tap_up_timer--;
+	if (tap_down_timer  > 0) tap_down_timer--;
+
+	if (keyboard_check_pressed(ord("A"))) {
+		if (tap_left_timer > 0) {
+			is_running = true;
+			run_dir = 1;
+		}
+		tap_left_timer = tap_window;
+	}
+
+	if (keyboard_check_pressed(ord("D"))) {
+		if (tap_right_timer > 0) {
+			is_running = true;
+			run_dir = 2;
+		}
+		tap_right_timer = tap_window;
+	}
+
+	if (keyboard_check_pressed(ord("W"))) {
+		if (tap_up_timer > 0) {
+			is_running = true;
+			run_dir = 3;
+		}
+		tap_up_timer = tap_window;
+	}
+
+	if (keyboard_check_pressed(ord("S"))) {
+		if (tap_down_timer > 0) {
+			is_running = true;
+			run_dir = 4;
+		}
+		tap_down_timer = tap_window;
+	}
+
+	if ((left + right + up + down) == 0) {
+		is_running = false;
+		run_dir = 0;
+	}
+
+	if (is_running) {
+		switch (run_dir) {
+			case 1: if (!left)  is_running = false; break;
+			case 2: if (!right) is_running = false; break;
+			case 3: if (!up)    is_running = false; break;
+			case 4: if (!down)  is_running = false; break;
+		}
+		if (!is_running) run_dir = 0;
+	}
+
+	var _speed = is_running ? vel_run : vel_walk;
+	velh = (right - left) * _speed;
+	velv = (down - up) * _speed;
 }
 
 // Função de controle exclusiva para o modo de fuga (Corrida infinita)
@@ -56,13 +120,11 @@ control_fuga = function() {
     down = keyboard_check(ord("S"));
     jump = keyboard_check_pressed(vk_space);
 
-    // Se estiver atordoado, subtrai a perda de velocidade do limite máximo
-    var _vel_atual = vel_max - perda_velocidade;
+	var _vel_atual = vel_fuga - perda_velocidade;
+	if (_vel_atual < 0) _vel_atual = 0;
+	velh = _vel_atual;
     
-    // Força o X a correr na velocidade atual calculada
-    velh = _vel_atual; 
-    
-    // Controle vertical de desvio
+    // Você controla o desvio vertical de forma suave (2)
     velv = (down - up) * 2; 
 }
 
@@ -107,12 +169,14 @@ p_attack = function() {
 	if (sprite_index != spr_player_punch1 && sprite_index != spr_player_punch2) {
 		sprite_index = spr_player_punch1;
 		image_index = 0;
+		attack_sequence_id++;
 	}
 	
 	if (_attack && image_index >= image_number - 1) {
 		if (sprite_index == spr_player_punch1) {
 			sprite_index = spr_player_punch2;
 			image_index = 0;
+			attack_sequence_id++;
 			buffer_attack = false;
 		}
 	}
@@ -166,8 +230,6 @@ p_cutscene = function() {
         estado = p_idle;
     }
 }
-
-// CÓDIGO LIMPO DO P_FUGA NO OBJ_PLAYER
 p_fuga = function() {
     sprite_index = spr_player_walk;
     
@@ -176,7 +238,6 @@ p_fuga = function() {
     if (jump) { 
         estado = p_jump_fuga; 
     }
-    // Repare que sumiu todo aquele bloco de IF com cronômetro daqui!
 }
 
 p_jump_fuga = function() {

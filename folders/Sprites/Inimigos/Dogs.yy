@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Dogs",
+  "children":[],
+  "filterType":"",
+  "folderName":"Dogs",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Dogs",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

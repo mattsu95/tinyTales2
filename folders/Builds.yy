@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Builds",
+  "children":[],
+  "filterType":"",
+  "folderName":"Builds",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Builds",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}

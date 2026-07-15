@@ -1,16 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_item",
+  "%Name":"obj_portal_trigger",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"eventNum":0,"eventType":4,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_item",
+  "name":"obj_portal_trigger",
   "overriddenProperties":[],
   "parent":{
-    "name":"Itens",
-    "path":"folders/Objects/Itens.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,9 +30,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_pocao",
-    "path":"sprites/spr_pocao/spr_pocao.yy",
+    "name":"spr_colisao",
+    "path":"sprites/spr_colisao/spr_colisao.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

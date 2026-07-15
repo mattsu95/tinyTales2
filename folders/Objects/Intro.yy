@@ -1,0 +1,12 @@
+﻿{
+  "$GMFolder":"",
+  "%Name":"Intro",
+  "children":[],
+  "filterType":"",
+  "folderName":"Intro",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"Intro",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0",
+}
