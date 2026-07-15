@@ -10,22 +10,22 @@ if (mostrar_inventario)
 {
     var total = array_length(inventario);
 
+    // Fundo escurecido sempre que o inventário estiver aberto.
+    draw_set_alpha(0.5);
+    draw_set_color(c_black);
+    draw_rectangle(
+        0,
+        0,
+        display_get_gui_width(),
+        display_get_gui_height(),
+        false
+    );
+
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+
     if (total > 0)
     {
-        // Fundo escurecido
-        draw_set_alpha(0.5);
-        draw_set_color(c_black);
-        draw_rectangle(
-            0,
-            0,
-            display_get_gui_width(),
-            display_get_gui_height(),
-            false
-        );
-
-        draw_set_alpha(1);
-
-
         // Desenha os itens em círculo
         for (var i = 0; i < total; i++)
         {
@@ -53,5 +53,14 @@ if (mostrar_inventario)
                 py
             );
         }
+    }
+    else
+    {
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_text(centro_x, centro_y, "Inventario vazio");
+        draw_text(centro_x, centro_y + 24, "Colete itens para preencher");
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
     }
 }

@@ -4,7 +4,7 @@ if (velh != 0) {
 
 estado();
 
-if (keyboard_check_pressed(ord("I")))
+if (keyboard_check_pressed(vk_tab))
 {
     mostrar_inventario = !mostrar_inventario;
 }
@@ -31,4 +31,8 @@ if (mostrar_inventario && array_length(inventario) > 0)
     {
         indice_selecionado = array_length(inventario)-1;
     }
+}
+else if (array_length(inventario) == 0)
+{
+    indice_selecionado = 0;
 }
