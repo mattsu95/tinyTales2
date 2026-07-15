@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Cutscene_dog",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Cutscene_dog",
+  "parent":{
+    "name":"Dogs",
+    "path":"folders/Scripts/Cutscenes/Dogs.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
