@@ -1,33 +1,57 @@
 // --- VARIÁVEIS DE CONTROLE DA CUTSCENE ---
-action = 0; // Índice da ação atual (qual linha da lista está rodando)
-timer = 0;  // Cronômetro em frames para controlar o tempo das ações
+action = 0; 
+timer = 0;  
+draw_flash = false; 
 
-// Âncoras para guardar a posição da câmera antes do terremoto
+// Âncoras do terremoto
 original_cam_x = 0; 
 original_cam_y = 0; 
 
-// Força o player a entrar no modo de cutscene (bloqueia o teclado)
+// Trava o player no modo de cutscene no primeiro frame
 obj_player.estado = obj_player.p_cutscene;
 
-// --- SEQUÊNCIA DE AÇÕES DA CUTSCENE ---
+// --- O ROTEIRO COMPLETO (TUDO EM UM LUGAR SÓ) ---
 cutscene = [
-  
     
-    // Alinha o player na estrada: [função, X_alvo, Y_alvo, velocidade]
+    // --- PARTE 1: A AMEAÇA DOS CACHORROS ---
     [cutscene_move_player_to_pos, 300, 180, 0.8],
-	[cutscene_play_sound, CachorroLatindo, 1, false],
-	[cutscene_dialogueDog, [
-        { texto: "O que é isso?", maquina: true, tempo: 2 }
-    ]],
+    [cutscene_play_sound, CachorroLatindo, 1, false],
+    [cutscene_dialogueDog, [{ texto: "O que é isso?", maquina: true, tempo: 2 }]],
     [cutscene_wait, 2],
-    // Terremoto de suspense: [função, segundos_tremendo, força_do_chacoalho]
     [cutscene_screen_shake, 2, 6], 
-	[cutscene_dialogueDog, [
-        { texto: "AH NÃO!!!!!", maquina: true, tempo: 2 }
-    ]],
-	[cutscene_wait, 1],
-	[cutscene_play_sound, Bad_Piggies_Theme, 1, false],
+    [cutscene_dialogueDog, [{ texto: "AH NÃO!!!!!", maquina: true, tempo: 2 }]],
+    [cutscene_wait, 1],
+    [cutscene_play_sound, Bad_Piggies_Theme, 1, false],
     [cutscene_spawn_dogs, 5],
-    // [função, segundos_correndo, vel_player, vel_dogs]
-    [cutscene_the_chase, 3.8, 3, 3.5, 8], 
+    [cutscene_the_chase, 3.8, 3, 3.5], 
+    
+    // --- PARTE 2: GAMEPLAY INTERATIVA COM TUTORIAL CORRENDO ---
+    // Você já corre e desvia por 8 segundos enquanto o aviso discreto aparece e some no topo!
+    [cutscene_gameplay_fuga_com_dialogo, 15, [{ texto: "Use W e S para se movimentar e desviar dos objetos", maquina: false, tempo: 3.5 }]],
+    
+    // --- PARTE 3: O INIMIGO APARECE ---
+    [cutscene_play_sound, thunder, 1, false],
+    [cutscene_flash_and_stop, 1.5, 5], 
+    [cutscene_stop_sound, thunder],
+    [cutscene_wait, 1],
+    [cutscene_spawn_and_move_enemy, 80, 0.8],
+    [cutscene_wait, 1],
+    
+    // --- PARTE 4: A CONVERSA FIADA ---
+    [cutscene_dialogueDog, [{ nome: "Jogador", texto: "Calma, Tini!!!", maquina: true, tempo: 1.5 }]],
+    [cutscene_dialogueDog, [{ nome: "Jogador", texto: "Eu te salvo dessa!", maquina: true, tempo: 1.8 }]],
+    [cutscene_dialogueDog, [{ nome: "Tini", texto: "Oloco, fi, sério?", maquina: true, tempo: 1.5 }]],
+    [cutscene_dialogueDog, [{ nome: "Tini", texto: "Boto fé!", maquina: true, tempo: 1.5 }]],
+    [cutscene_wait, 3],
+    [cutscene_dialogueDog, [{ nome: "Jogador", texto: "Já pode correr, Tini.", maquina: true, tempo: 1.8 }]],
+    [cutscene_dialogueDog, [{ nome: "Tini", texto: "Han?", maquina: true, tempo: 1.2 }]],
+    [cutscene_dialogueDog, [{ nome: "Jogador", texto: "Corre, FI!", maquina: true, tempo: 1.2 }]],
+    [cutscene_dialogueDog, [{ nome: "Tini", texto: "Mas já é para correr?!", maquina: true, tempo: 2 }]],
+    [cutscene_wait, 1],
+    
+    // --- PARTE 5: FUGA FINAL E LIBERDADE ---
+    // Corre sozinho por 2 segundos a 3.5x, inimigo ou cachorro (0x) fica pra trás
+    [cutscene_the_chase, 2.0, 3.5, 0], 
+    [cutscene_liberar_player],
+	[cutscene_stop_sound, Bad_Piggies_Theme],
 ];
