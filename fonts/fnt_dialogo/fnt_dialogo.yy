@@ -203,7 +203,7 @@
     "253":{"character":253,"h":19,"offset":0,"shift":8,"w":8,"x":200,"y":44,},
     "254":{"character":254,"h":19,"offset":1,"shift":9,"w":8,"x":210,"y":44,},
     "255":{"character":255,"h":19,"offset":0,"shift":8,"w":8,"x":219,"y":149,},
-    "9647":{"character":9647,"h":19,"offset":4,"shift":16,"w":10,"x":229,"y":149,},
+    "9647":{"character":9647,"h":19,"offset":3,"shift":16,"w":10,"x":229,"y":149,},
   },
   "hinting":0,
   "includeTTF":false,
@@ -292,8 +292,8 @@
   "maintainGms1Font":false,
   "name":"fnt_dialogo",
   "parent":{
-    "name":"tiniEmUp",
-    "path":"tiniEmUp.yyp",
+    "name":"Fonts",
+    "path":"folders/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[

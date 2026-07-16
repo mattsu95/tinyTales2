@@ -145,6 +145,8 @@
     {"id":{"name":"spr_dog2_idle","path":"sprites/spr_dog2_idle/spr_dog2_idle.yy",},},
     {"id":{"name":"spr_dog2_walk","path":"sprites/spr_dog2_walk/spr_dog2_walk.yy",},},
     {"id":{"name":"spr_enemy_idle","path":"sprites/spr_enemy_idle/spr_enemy_idle.yy",},},
+    {"id":{"name":"spr_enemy_move","path":"sprites/spr_enemy_move/spr_enemy_move.yy",},},
+    {"id":{"name":"spr_enemy_punch","path":"sprites/spr_enemy_punch/spr_enemy_punch.yy",},},
     {"id":{"name":"spr_frente","path":"sprites/spr_frente/spr_frente.yy",},},
     {"id":{"name":"spr_fundo","path":"sprites/spr_fundo/spr_fundo.yy",},},
     {"id":{"name":"spr_level","path":"sprites/spr_level/spr_level.yy",},},
