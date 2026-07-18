@@ -7,13 +7,17 @@
   "inheritLayers":false,
   "instanceCreationOrder":[
     {"name":"inst_29247FD1","path":"rooms/Unioeste1/Unioeste1.yy",},
-    {"name":"inst_7E870FA6","path":"rooms/Unioeste1/Unioeste1.yy",},
+    {"name":"inst_72AD2FBD","path":"rooms/Unioeste1/Unioeste1.yy",},
+    {"name":"inst_4B2FFAB6","path":"rooms/Unioeste1/Unioeste1.yy",},
+    {"name":"inst_6EA10120","path":"rooms/Unioeste1/Unioeste1.yy",},
   ],
   "isDnd":false,
   "layers":[
     {"$GMRInstanceLayer":"","%Name":"Instances_1","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_29247FD1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_29247FD1","objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":64.0,"y":192.0,},
-        {"$GMRInstance":"v4","%Name":"inst_7E870FA6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7E870FA6","objectId":{"name":"obj_cutscene_dog","path":"objects/obj_cutscene_dog/obj_cutscene_dog.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":32.0,"y":0.0,},
+        {"$GMRInstance":"v4","%Name":"inst_72AD2FBD","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_72AD2FBD","objectId":{"name":"obj_bicicleta","path":"objects/obj_bicicleta/obj_bicicleta.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":0.1,"scaleY":0.1,"x":5109.0,"y":96.65,},
+        {"$GMRInstance":"v4","%Name":"inst_4B2FFAB6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4B2FFAB6","objectId":{"name":"obj_gatilho_acidente","path":"objects/obj_gatilho_acidente/obj_gatilho_acidente.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":7.125,"x":5587.0,"y":102.0,},
+        {"$GMRInstance":"v4","%Name":"inst_6EA10120","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6EA10120","objectId":{"name":"obj_gatilho_cachorros","path":"objects/obj_gatilho_cachorros/obj_gatilho_cachorros.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":17.25,"x":504.0,"y":-60.0,},
       ],"layers":[],"name":"Instances_1","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRAssetLayer":"","%Name":"Casas","assets":[
         {"$GMRSpriteGraphic":"v1","%Name":"graphic_4FF28D4E","animationSpeed":1.0,"colour":4294967295,"frozen":false,"headPosition":0.0,"ignore":false,"inheritedItemId":null,"inheritItemSettings":false,"name":"graphic_4FF28D4E","resourceType":"GMRSpriteGraphic","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"spriteId":{"name":"Building1","path":"sprites/Building1/Building1.yy",},"x":0.0,"y":-44.0,},
@@ -426,8 +430,8 @@
   ],
   "name":"Unioeste1",
   "parent":{
-    "name":"tiniEmUp",
-    "path":"tiniEmUp.yyp",
+    "name":"Cenas",
+    "path":"folders/Cenas.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
