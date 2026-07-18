@@ -23,3 +23,7 @@ if (_player != noone) {
 		}
 	}
 }
+
+// MOVIMENTAÇÃO
+
+move_and_collide(velh, velv, obj_colisao);

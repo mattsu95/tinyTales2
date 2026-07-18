@@ -46,12 +46,14 @@ if (mostrar_inventario)
             // Sprite do item
             draw_set_color(c_white);
 
-            draw_sprite(
-                inventario[i].sprite,
-                0,
-                px,
-                py
-            );
+			if (inventario[i]) {
+	            draw_sprite(
+	                inventario[i].sprite,
+	                0,
+	                px,
+	                py
+	            );
+			}
         }
     }
     else
