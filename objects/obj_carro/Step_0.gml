@@ -1,0 +1,1 @@
+x -= velocidade; // Faz ele correr para a esquerda

@@ -293,21 +293,27 @@ function cutscene_gameplay_fuga_com_dialogo(_segundos, _array_de_falas) {
         _caixa.falas = _array_de_falas;
     }
     
-    // --- SISTEMA DE SPAWN ALEATÓRIO ---
-    if (timer % 72 == 0) {
-        var _cam = view_camera[0];
-        var _cam_x = camera_get_view_x(_cam);
-        var _cam_w = camera_get_view_width(_cam);
-        
-        var _spawn_x = _cam_x + _cam_w + 40; 
-        
-        var _pista = irandom(2);
-        var _spawn_y = 100; 
-        
-        if (_pista == 1) _spawn_y = 157; 
-        if (_pista == 2) _spawn_y = 188; 
-        
-        instance_create_layer(_spawn_x, _spawn_y, "Instances_1", obj_obstaculo);
+    // --- SISTEMA DE SPAWN ALEATÓRIO (AGORA COM DELAY) ---
+    // Multiplica o FPS por 2 para dar exatos 2 segundos de respiro antes de spawnar coisas
+    var _tempo_respiro = game_get_speed(gamespeed_fps) * 2;
+    
+    if (timer > _tempo_respiro) {
+        // Só entra aqui depois de 2 segundos lendo o texto!
+        if (timer % 72 == 0) {
+            var _cam = view_camera[0];
+            var _cam_x = camera_get_view_x(_cam);
+            var _cam_w = camera_get_view_width(_cam);
+            
+            var _spawn_x = _cam_x + _cam_w + 40; 
+            
+            var _pista = irandom(2);
+            var _spawn_y = 100; 
+            
+            if (_pista == 1) _spawn_y = 157; 
+            if (_pista == 2) _spawn_y = 188; 
+            
+            instance_create_layer(_spawn_x, _spawn_y, "Instances_1", obj_obstaculo);
+        }
     }
     
     timer++;
@@ -327,6 +333,78 @@ function cutscene_gameplay_fuga_com_dialogo(_segundos, _array_de_falas) {
         
         with(obj_obstaculo) { instance_destroy(); }
         
+        action_end();
+    }
+}
+
+
+
+
+// Função para parar a corrida do player e dos cachorros da esquerda
+function cutscene_stop_chase() {
+    // Para o player
+    obj_player.sprite_index = spr_player_idle;
+    // Se o player tiver variáveis de velocidade física, zere-as aqui (ex: velh = 0)
+    
+    // Para todos os cachorros que já existem (os 5 da esquerda)
+    with (obj_dog) {
+        velocidade = 0;
+        // Se você tiver um sprite do cachorro parado, coloque aqui:
+        // sprite_index = spr_dog_idle; 
+    }
+    
+    action_end();
+}
+
+// Função para criar 3 cachorros na direita e trazê-los para a tela
+function cutscene_spawn_and_move_dogs_right(_quantidade, _distancia_para_entrar, _spd) {
+    var _cam = view_camera[0];
+    var _cam_x = camera_get_view_x(_cam);
+    var _cam_w = camera_get_view_width(_cam);
+    
+    // FRAME 0: Cria os cachorros fora da tela, à direita
+    if (timer == 0) {
+        var _spawn_x = _cam_x + _cam_w + 50; 
+        var _pos_y_base = obj_player.y;
+        
+        for (var _i = 0; _i < _quantidade; _i++) {
+            // Distribui eles no eixo Y para não ficarem um em cima do outro
+            var _distancia_y = 0;
+            if (_i == 0) _distancia_y = -35;
+            if (_i == 1) _distancia_y = 0;
+            if (_i == 2) _distancia_y = 35;
+            
+            var _dog = instance_create_layer(_spawn_x + (_i * 15), _pos_y_base + _distancia_y, "Instances_1", obj_dog);
+            
+            // Cria uma variável exclusiva para esses cachorros da frente
+            _dog.cachorro_da_frente = true; 
+            
+            // Se precisar virar o sprite do cachorro para ele olhar para a esquerda:
+            _dog.image_xscale = -1; 
+        }
+    }
+    
+    var _todos_chegaram = true;
+    var _ponto_parada = (_cam_x + _cam_w) - _distancia_para_entrar;
+    
+    // Move APENAS os cachorros marcados como "da frente"
+    with (obj_dog) {
+        if (variable_instance_exists(id, "cachorro_da_frente")) {
+            if (x > _ponto_parada) {
+                x -= _spd; // Anda para a esquerda
+                _todos_chegaram = false;
+            } else {
+                x = _ponto_parada;
+                // Pode mudar para o sprite parado deles aqui
+            }
+        }
+    }
+    
+    timer++;
+    
+    // Se todos chegaram no ponto e já passou do frame 0, finaliza a ação
+    if (_todos_chegaram && timer > 5) {
+        timer = 0;
         action_end();
     }
 }

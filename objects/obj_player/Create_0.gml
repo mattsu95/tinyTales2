@@ -46,6 +46,14 @@ atordoado = false;
 timer_atordoado = 0;
 perda_velocidade = 0;
 
+
+// Variáveis da Bicicleta
+ta_de_bike = false;
+vel_atual_bike = 0;       // Começa parada
+vel_max_bike = 8;         // A velocidade máxima que ela atinge
+aceleracao_bike = 0.2;    // O quão rápido ela embala
+friccao_bike = 0.3;       // O quão rápido ela freia quando você solta o botão
+
 // --- FUNÇÕES DE CONTROLE ---
 
 // Função de controle padrão (Movimentação livre 8 direções)
@@ -217,6 +225,59 @@ p_jump = function() {
 		is_on_air = false;
 		estado = p_idle;		
 	}
+}
+
+p_bike = function() {
+   
+    sprite_index = tinicleta; 
+	
+	image_yscale = 0.1;
+    // Pega a direção que o Step definiu (1 ou -1) e transforma em 0.1 ou -0.1
+    image_xscale = sign(image_xscale) * 0.1;
+
+    // --- 1. CAMPAINHA ---
+    if (keyboard_check_pressed(ord("F"))) {
+        audio_play_sound(bell, 1, false);
+    }
+
+    // --- 2. INPUTS DE MOVIMENTO ---
+    var _right = keyboard_check(ord("D"));
+    var _left  = keyboard_check(ord("A"));
+    var _up    = keyboard_check(ord("W"));
+    var _down  = keyboard_check(ord("S"));
+    
+    var _input_x = _right - _left;
+
+    // --- 3. ACELERAÇÃO E FRICÇÃO (HORIZONTAL) ---
+    if (_input_x != 0) {
+        // Acelera gradualmente
+        vel_atual_bike += aceleracao_bike * _input_x;
+        vel_atual_bike = clamp(vel_atual_bike, -vel_max_bike, vel_max_bike);
+        
+        // Toca o som da corrente/pedal em loop se não estiver tocando
+        if (!audio_is_playing(bicycle)) {
+            audio_play_sound(bicycle, 1, true);
+        }
+    } else {
+        // Freia gradualmente quando solta o botão (Fricção)
+        if (vel_atual_bike > 0) vel_atual_bike -= friccao_bike;
+        if (vel_atual_bike < 0) vel_atual_bike += friccao_bike;
+        
+        // Evita que a bike fique deslizando com 0.01 de velocidade
+        if (abs(vel_atual_bike) < friccao_bike) vel_atual_bike = 0;
+        
+        // Para o som quando a bicicleta parar totalmente
+        if (vel_atual_bike == 0 && audio_is_playing(bicycle)) {
+            audio_stop_sound(bicycle);
+        }
+    }
+
+    // --- 4. APLICA AS VELOCIDADES ---
+    velh = vel_atual_bike;
+    
+    // Permite que a bicicleta desvie para cima e para baixo (eixo Y)
+    // Coloquei velocidade 4, mas você pode ajustar se quiser mais rápido ou mais devagar
+    velv = (_down - _up) * 4; 
 }
 
 p_cutscene = function() {
