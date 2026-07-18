@@ -12,7 +12,6 @@ vel_max  = vel_run; // Mantido para compatibilidade com outras rotinas
 vel_jump = 5;   // Força do pulo
 grav     = 0.2; // Gravidade aplicada no eixo Z
 z        = 0;   // Altura do pulo
-is_on_air = false;
 
 tap_window = 12; // Janela (em frames) para detectar duplo toque
 tap_left_timer  = 0;
