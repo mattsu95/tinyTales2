@@ -38,6 +38,9 @@ attack = noone;
 
 buffer_attack = false;
 attack_sequence_id = 0;
+combo_id = 0;
+attack_started = false;
+attack_cooldown = 0;
 timer_fuga = 0;        // Cronômetro para disparar o evento do novo inimigo
 tempo_limite_fuga = 5; // Tempo padrão (caso nenhuma cutscene defina um tempo diferente)
 inimigo_ja_apareceu = false;
@@ -141,7 +144,7 @@ p_idle = function() {
 	}
 	
 	if (jump)   { estado = p_jump; }
-	if (attack) { estado = p_attack; }
+	if (attack && attack_cooldown <= 0) { estado = p_attack; }
 }
 
 p_walk = function() {
@@ -154,37 +157,58 @@ p_walk = function() {
 	}
 	
 	if (jump)   { estado = p_jump; }
-	if (attack) { estado = p_attack; }
+	if (attack && attack_cooldown <= 0) { estado = p_attack; }
 }
 
 p_attack = function() {
 	velv = 0;
 	velh = 0;
 	
-	var _attack = mouse_check_button_pressed(mb_left);
 	
-	if (buffer_attack == true) { _attack = true; } 
-	else { buffer_attack = mouse_check_button_pressed(mb_left); }
-	
-	if (sprite_index != spr_player_punch1 && sprite_index != spr_player_punch2) {
-		sprite_index = spr_player_punch1;
-		image_index = 0;
-		attack_sequence_id++;
+	if (!attack_started) {
+	    attack_started = true;
+
+	    switch(combo_id) {
+	        case 0: // primeiro ataque
+	            sprite_index = spr_player_punch1;
+	            break;
+
+	        case 1: // segundo ataque
+	            sprite_index = spr_player_punch2;
+	            break;
+			
+			default:
+				estado = p_idle;
+				buffer_attack = false;
+				attack_started = false;
+				combo_id = 0;
+				attack_cooldown = room_speed * 0.25;
+				return;
+	    }
+
+	    image_index = 0;
+	    attack_sequence_id++;
 	}
 	
-	if (_attack && image_index >= image_number - 1) {
-		if (sprite_index == spr_player_punch1) {
-			sprite_index = spr_player_punch2;
-			image_index = 0;
-			attack_sequence_id++;
-			buffer_attack = false;
-		}
+	
+	if (mouse_check_button_pressed(mb_left)) { 
+		buffer_attack = true; 
+	}
+	
+	var janela_combo = image_index >= image_number * 0.7;
+	if (janela_combo && buffer_attack) { 
+		combo_id++; 
+		attack_started = false;
+		buffer_attack = false;
 	}
 	
 	// Saindo do estado de ataque
 	if (image_index >= image_number - 1) {
 		estado = p_idle;
 		buffer_attack = false;
+		attack_started = false;
+		combo_id = 0;
+		attack_cooldown = room_speed * 0.25;
 	}
 }
 
@@ -269,6 +293,11 @@ p_jump_fuga = function() {
         is_on_air = false;
         estado = p_fuga; // Volta direto para a corrida de fuga sem parar!       
     }
+}
+
+// ROLA O DADO PARA USAR UM ITEM ALEATÓRIO DO INVENDADO
+p_dice_roll = function () {
+	
 }
 
 // --- DEFINE O ESTADO INICIAL ---

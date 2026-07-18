@@ -19,6 +19,8 @@
     {"name":"inst_3658E977","path":"rooms/Floresta/Floresta.yy",},
     {"name":"inst_19889DC5","path":"rooms/Floresta/Floresta.yy",},
     {"name":"inst_29E8629E","path":"rooms/Floresta/Floresta.yy",},
+    {"name":"inst_6B162C51","path":"rooms/Floresta/Floresta.yy",},
+    {"name":"inst_66C9FEA5","path":"rooms/Floresta/Floresta.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -36,6 +38,8 @@
         {"$GMRInstance":"v4","%Name":"inst_3658E977","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_3658E977","objectId":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":736.0,"y":160.0,},
         {"$GMRInstance":"v4","%Name":"inst_19889DC5","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_19889DC5","objectId":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":864.0,"y":160.0,},
         {"$GMRInstance":"v4","%Name":"inst_29E8629E","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_29E8629E","objectId":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":224.0,"y":192.0,},
+        {"$GMRInstance":"v4","%Name":"inst_6B162C51","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6B162C51","objectId":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":320.0,"y":160.0,},
+        {"$GMRInstance":"v4","%Name":"inst_66C9FEA5","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_66C9FEA5","objectId":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":384.0,"y":192.0,},
       ],"layers":[],"name":"Instances_1","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRAssetLayer":"","%Name":"Arvores1","assets":[
         {"$GMRSpriteGraphic":"v1","%Name":"graphic_66F27EA2","animationSpeed":1.0,"colour":4294967295,"frozen":false,"headPosition":0.0,"ignore":false,"inheritedItemId":null,"inheritItemSettings":false,"name":"graphic_66F27EA2","resourceType":"GMRSpriteGraphic","resourceVersion":"2.0","rotation":0.0,"scaleX":0.36896315,"scaleY":0.34507042,"spriteId":{"name":"arvore1","path":"sprites/arvore1/arvore1.yy",},"x":15.0,"y":44.0,},

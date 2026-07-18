@@ -32,6 +32,8 @@ if (velh != 0) {
 	image_xscale = sign(velh);
 }
 
+if (attack_cooldown > 0) { attack_cooldown--; }
+
 estado();
 
 if (keyboard_check_pressed(vk_tab))
