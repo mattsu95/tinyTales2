@@ -34,6 +34,9 @@ if (velh != 0) {
 
 if (attack_cooldown > 0) { attack_cooldown--; }
 
+if (dice_cooldown > 0) { dice_cooldown--; }
+
+
 estado();
 
 if (keyboard_check_pressed(vk_tab))
