@@ -26,7 +26,7 @@ if (instance_exists(obj_player)) {
             
             // BÔNUS: Já manda outro texto do seu sistema ensinando a pedalar!
             var _caixa_tutorial = instance_create_layer(0, 0, "Instances_1", obj_textbox);
-            _caixa_tutorial.falas = [{ texto: "Use A e D para pedalar, e F para buzinar!", maquina: false, tempo: 5 }]; // Aumentei o tempo para 5!
+            _caixa_tutorial.falas = [{ texto: "Use A e D para pedalar, e E para buzinar!", maquina: false, tempo: 5 }]; // Aumentei o tempo para 5!
             
             instance_destroy(); // Destrói a bicicleta do chão
         }

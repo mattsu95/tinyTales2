@@ -12,6 +12,7 @@ vel_max  = vel_run; // Mantido para compatibilidade com outras rotinas
 vel_jump = 5;   // Força do pulo
 grav     = 0.2; // Gravidade aplicada no eixo Z
 z        = 0;   // Altura do pulo
+is_on_air = false; // Inicializa antes de usar em control_player
 
 tap_window = 12; // Janela (em frames) para detectar duplo toque
 tap_left_timer  = 0;
@@ -266,7 +267,7 @@ p_bike = function() {
     image_xscale = sign(image_xscale) * 0.1;
 
     // --- 1. CAMPAINHA ---
-    if (keyboard_check_pressed(ord("F"))) {
+    if (keyboard_check_pressed(ord("E"))) {
         audio_play_sound(bell, 1, false);
     }
 

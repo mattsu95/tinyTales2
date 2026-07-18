@@ -241,15 +241,15 @@ function cutscene_spawn_and_move_enemy(_distancia_para_entrar, _spd) {
     var _cam_w = camera_get_view_width(_cam);
     
     // 1. Se o inimigo ainda não existe, cria ele escondido bem na direita da tela
-    if (!instance_exists(obj_enemy)) {
+    if (!instance_exists(obj_cutscene_enemy)) {
         var _spawn_x = _cam_x + _cam_w + 50; // 50 pixels fora da tela à direita
         var _spawn_y = obj_player.y;         // Alinhado na altura da estrada
         
-        instance_create_layer(_spawn_x, _spawn_y, "Instances_1", obj_enemy);
+        instance_create_layer(_spawn_x, _spawn_y, "Instances_1", obj_cutscene_enemy);
     }
     
     // 2. Move o inimigo para a esquerda (entrando na tela devagar)
-    with(obj_enemy) {
+    with(obj_cutscene_enemy) {
         sprite_index = spr_enemy_idle; 
         x -= _spd; // Move para a esquerda
         
