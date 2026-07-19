@@ -124,6 +124,7 @@
     {"id":{"name":"Front_chair","path":"sprites/Front_chair/Front_chair.yy",},},
     {"id":{"name":"Front_red_chair","path":"sprites/Front_red_chair/Front_red_chair.yy",},},
     {"id":{"name":"fundo","path":"sprites/fundo/fundo.yy",},},
+    {"id":{"name":"Gameover","path":"sprites/Gameover/Gameover.yy",},},
     {"id":{"name":"Green_Vending_Machine","path":"sprites/Green_Vending_Machine/Green_Vending_Machine.yy",},},
     {"id":{"name":"Horizental_cardboard_box","path":"sprites/Horizental_cardboard_box/Horizental_cardboard_box.yy",},},
     {"id":{"name":"Light_Pole","path":"sprites/Light_Pole/Light_Pole.yy",},},
