@@ -1,3 +1,51 @@
+// --- EFEITO DE DANO NA HUD ---
+if (dano_flash_timer > 0) {
+    dano_flash_timer--;
+}
+
+// --- GAME OVER ---
+if (game_over) {
+    velh = 0;
+    velv = 0;
+    sprite_index = spr_player_idle;
+    if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
+        game_restart();
+    }
+    exit;
+}
+
+// --- DEFESA ---
+defendendo = keyboard_check(ord("C"));
+
+// parry: ativa janela no primeiro frame de pressionar F
+if (keyboard_check_pressed(ord("C"))) {
+    parry_window = parry_window_max;
+}
+if (parry_window > 0) parry_window--;
+
+if (defendendo) {
+    // dourado durante a janela de parry, azul depois
+    if (parry_window > 0) {
+        image_blend = make_colour_rgb(255, 220, 50);
+    } else {
+        image_blend = make_colour_rgb(80, 160, 255);
+    }
+} else if (invincivel_timer <= 0) {
+    image_blend = c_white;
+}
+
+if (invincivel_timer > 0) {
+    invincivel_timer--;
+    // pisca o player durante a invencibilidade
+    image_alpha = (invincivel_timer mod 6 < 3) ? 0.4 : 1.0;
+} else {
+    image_alpha = 1.0;
+    // verifica morte
+    if (vida <= 0) {
+        game_over = true;
+    }
+}
+
 if (place_meeting(x, y, obj_obstaculo)) {
     var _obstaculo = instance_place(x, y, obj_obstaculo);
     if (_obstaculo != noone) {

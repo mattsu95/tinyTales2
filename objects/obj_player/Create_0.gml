@@ -1,5 +1,23 @@
 randomize();
 
+image_speed = 0.7; // velocidade das animações (1 = padrão, menor = mais devagar)
+
+// --- VIDA DO PLAYER ---
+vida_max = 100;
+vida     = vida_max;
+invincivel_timer = 0;
+invincivel_max   = game_get_speed(gamespeed_fps) * 0.3; // reduzido para permitir combos inimigos pegarem
+game_over = false;
+
+// --- EFEITO DE DANO NA HUD ---
+dano_flash_timer = 0;
+dano_flash_max = 8; // frames que a barra fica vermelha/vibrando
+
+defendendo = false; // true enquanto F estiver pressionado
+parry_window     = 0;  // frames restantes de janela de parry
+parry_window_max = 15; // ~0.25s a 60fps — janela ativa logo ao pressionar F
+parry_stun_max   = game_get_speed(gamespeed_fps) * 1.5; // stun causado no inimigo pelo parry
+
 // --- VARIÁVEIS DE MOVIMENTO E FÍSICA ---
 velh = 0;
 velv = 0;
@@ -150,6 +168,8 @@ control_fuga = function() {
 p_idle = function() {
 	sprite_index = spr_player_idle;
 	
+	if (defendendo) { estado = p_defend; return; }
+
 	control_player();
 	
 	if (velh != 0 or velv != 0) {
@@ -164,6 +184,8 @@ p_idle = function() {
 p_walk = function() {
 	sprite_index = spr_player_walk;
 	
+	if (defendendo) { estado = p_defend; return; }
+
 	control_player();
 	
 	if (velh == 0 and velv == 0) {
@@ -173,6 +195,17 @@ p_walk = function() {
 	if (jump)   { estado = p_jump; }
 	if (attack && attack_cooldown <= 0) { estado = p_attack; }
 	if (roll_dice && array_length(inventario) > 0 && dice_cooldown <= 0) { estado = p_dice_roll; }
+}
+
+p_defend = function() {
+	sprite_index = spr_player_idle;
+	velh = 0;
+	velv = 0;
+
+	// sai da defesa quando soltar F
+	if (!defendendo) {
+		estado = p_idle;
+	}
 }
 
 p_attack = function() {
@@ -191,13 +224,18 @@ p_attack = function() {
 	        case 1: // segundo ataque
 	            sprite_index = spr_player_punch2;
 	            break;
+
+	        case 2: // terceiro ataque
+	            sprite_index = spr_player_punch1;
+	            break;
 			
 			default:
+				// combo de 3 hits completo — cooldown maior para nao stun-lokar
 				estado = p_idle;
 				buffer_attack = false;
 				attack_started = false;
 				combo_id = 0;
-				attack_cooldown = game_get_speed(gamespeed_fps) * 0.25;
+				attack_cooldown = game_get_speed(gamespeed_fps) * 1.0;
 				return;
 	    }
 
@@ -219,11 +257,20 @@ p_attack = function() {
 	
 	// Saindo do estado de ataque
 	if (image_index >= image_number - 1) {
-		estado = p_idle;
-		buffer_attack = false;
-		attack_started = false;
-		combo_id = 0;
-		attack_cooldown = game_get_speed(gamespeed_fps) * 0.25;
+		if (combo_id >= 2) {
+			// terminou o 3º hit sem continuar — cooldown completo
+			estado = p_idle;
+			buffer_attack = false;
+			attack_started = false;
+			combo_id = 0;
+			attack_cooldown = game_get_speed(gamespeed_fps) * 1.0;
+		} else {
+			estado = p_idle;
+			buffer_attack = false;
+			attack_started = false;
+			combo_id = 0;
+			attack_cooldown = game_get_speed(gamespeed_fps) * 0.25;
+		}
 	}
 }
 
