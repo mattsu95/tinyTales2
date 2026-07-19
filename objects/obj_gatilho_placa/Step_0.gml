@@ -1,0 +1,40 @@
+if (instance_exists(obj_player)) {
+    
+    // 1. INICIA A LIGAÇÃO
+    if (!ativado && obj_player.x >= x) {
+        ativado = true;
+        audio_play_sound(ToqueMotorola, 1, true); // Toca em loop
+    }
+
+    // 2. ENQUANTO ESTÁ TOCANDO
+    if (ativado && !atendeu) {
+        timer_celular++;
+        
+        // --- CONDIÇÃO PARA ATENDER ---
+        var _apertou_e = keyboard_check_pressed(ord("E"));
+        var _estourou_tempo = (timer_celular >= tempo_limite);
+        
+        if (_apertou_e || _estourou_tempo) {
+            atendeu = true;
+            audio_stop_sound(ToqueMotorola);
+            
+            // Trava o player só na hora de conversar
+            obj_player.estado = obj_player.p_cutscene;
+            
+            // Cria o diálogo
+            var _caixa = instance_create_layer(0, 0, "Instances_1", obj_textbox);
+            _caixa.falas = [
+                { nome: "Tini", texto: "Fala, fih! Que foi?", maquina: true, tempo: 2 },
+                { nome: "thigas (Celular)", texto: "Mano, CADÊ VOCÊ?! O professor já tá fechando a sala!", maquina: true, tempo: 3.5 },
+                { nome: "Tini", texto: "Mentira! Já tô chegando no portão principal!", maquina: true, tempo: 2.5 },
+                { nome: "thigas (Celular)", texto: "Vem voando, desgraça! Se o portão fechar, já era!", maquina: true, tempo: 3 }
+            ];
+        }
+    }
+    
+    // 3. FIM DA LIGAÇÃO (Libera o player)
+    if (atendeu && !instance_exists(obj_textbox)) {
+        obj_player.estado = obj_player.p_idle; 
+        instance_destroy(); 
+    }
+}
