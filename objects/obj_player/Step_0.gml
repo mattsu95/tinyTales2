@@ -15,10 +15,10 @@ if (game_over) {
 }
 
 // --- DEFESA ---
-defendendo = keyboard_check(ord("F"));
+defendendo = keyboard_check(ord("C"));
 
 // parry: ativa janela no primeiro frame de pressionar F
-if (keyboard_check_pressed(ord("F"))) {
+if (keyboard_check_pressed(ord("C"))) {
     parry_window = parry_window_max;
 }
 if (parry_window > 0) parry_window--;
