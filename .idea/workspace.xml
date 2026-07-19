@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44c8e15d-741b-40eb-a9a5-7784b2664580" name="Changes" comment="Cenas e ajuste de conflito">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_enemy/Create_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_enemy/Create_0.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_enemy/Draw_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_enemy/Draw_0.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_enemy/Step_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_enemy/Step_0.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_enemy/Step_2.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_enemy/Step_2.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_player/Create_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_player/Create_0.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_player/Draw_64.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_player/Draw_64.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objects/obj_player/Step_0.gml" beforeDir="false" afterPath="$PROJECT_DIR$/objects/obj_player/Step_0.gml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/Floresta/Floresta.yy" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/Floresta/Floresta.yy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tiniEmUp.yyp" beforeDir="false" afterPath="$PROJECT_DIR$/tiniEmUp.yyp" afterDir="false" />
-    </list>
+    <list default="true" id="44c8e15d-741b-40eb-a9a5-7784b2664580" name="Changes" comment="sistema de combate com parry e melhoria na IA" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +71,23 @@
       <option name="project" value="LOCAL" />
       <updated>1784143862124</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="sistema de combate com parry e melhoria na IA">
+      <option name="closed" value="true" />
+      <created>1784501782166</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1784501782166</updated>
+    </task>
+    <task id="LOCAL-00005" summary="sistema de combate com parry e melhoria na IA">
+      <option name="closed" value="true" />
+      <created>1784501791161</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784501791161</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,6 +104,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Cenas e ajuste de conflito" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cenas e ajuste de conflito" />
+    <MESSAGE value="sistema de combate com parry e melhoria na IA" />
+    <option name="LAST_COMMIT_MESSAGE" value="sistema de combate com parry e melhoria na IA" />
   </component>
 </project>
