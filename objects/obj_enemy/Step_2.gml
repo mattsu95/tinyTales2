@@ -77,7 +77,7 @@ if (stun_ativo) {
         imunidade_stun = imunidade_stun_max;
         angulo_movimento = irandom(359);
         timer_ataque = cooldown_ataque_principal;
-        estado = e_circling;
+        estado = darksouls? e_rage: e_circling;
     }
 }
 

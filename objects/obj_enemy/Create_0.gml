@@ -2,6 +2,8 @@ event_inherited();
 
 image_speed = 0.6;
 
+grav     = 0.5;
+
 vida_max = 20;
 vida = vida_max;
 
@@ -56,6 +58,7 @@ sprite_move = spr_enemy_move;
 sprite_punch = spr_enemy_punch;
 sprite_shoot = spr_enemy_punch;
 sprite_taunt = spr_enemy_idle;
+sprite_pulo = spr_enemy_idle;
 
 projectile = obj_projectile;
 
@@ -65,6 +68,21 @@ parry_window_max = 150 + irandom(120);
 parry_window     = parry_window_max;  // frames restantes de janela de parry
 parry_stun_max   = game_get_speed(gamespeed_fps) * 3; // stun causado no player pelo parry
 parry = false;
+
+// Boss' specifics
+darksouls = false; // flag que indica se tá no moveset darksouls
+actions = 0;	   // Número de ações por estado de frenesi
+action_timer_max = game_get_speed(gamespeed_fps) * 1;
+action_timer = 0;
+vel_pulo = 15;
+jump_started = false;
+destino_x = x;
+destino_y = y;
+n_dash = 0;
+novo_destino = true;
+ultimo_angulo = -1;
+timer_dash_max = game_get_speed(gamespeed_fps) * 0.5;
+timer_dash = 0;
 
 
 checa_area = function(_tamanho = 0, _alvo = noone) {
@@ -390,7 +408,7 @@ e_combo = function() {
         combo_count = 0;
         attack_timer = 0;
 
-        estado = e_recovery;
+        estado = darksouls? e_rage: e_recovery;
 		parry = false;
         return;
     }
@@ -399,7 +417,6 @@ e_combo = function() {
 
     attack_timer++;
     if (attack_timer > attack_timeout * 2) {
-		show_message("entrou!");
         in_combo = false;
         combo_count = 0;
         attack_timer = 0;
@@ -461,8 +478,8 @@ e_combo = function() {
             combo_count = 0;
             attack_timer = 0;
             timer_recovery = tempo_recovery;
-            estado = e_recovery;
-			image_speed = 0.6
+            estado = darksouls? e_rage: e_recovery;
+			image_speed = 0.6;
         } else {
             image_index = 0;
             combo_timer = combo_delay;
@@ -476,16 +493,23 @@ e_dash = function() {
 
     alvo = checa_area(area_perseguicao, obj_player);
     if (!alvo || !instance_exists(alvo)) {
-        estado = e_search;
+        estado = darksouls? e_rage: e_search;
         return;
     }
 
     image_xscale = (alvo.x < x) ? 1 : -1;
 	
+	if (!in_combo) {
+        in_combo = true;
+		
+		dash_x = alvo.x;
+		dash_y = alvo.y;
+    }
+	
 	// DAR ALGUM AVISO, TIPO UMA PISCADA NA TELA OU UMA ANIMAÇÃO DIFERENTE 
 
     // Dash muito rápido
-    mover_para(alvo.x, alvo.y, vel_movimento * 6);
+    mover_para(dash_x, dash_y, vel_movimento * 5);
 
     var _dist = point_distance(x, y, alvo.x, alvo.y);
 
@@ -496,6 +520,142 @@ e_dash = function() {
 		combo_max = 1;
         estado = e_combo;
 		image_speed = 1.3;
+    }
+}
+
+// Estado Boss: frenesi de ataques inspirados em ornstein e smough
+e_rage = function() {
+	set_sprite(sprite_idle);
+	darksouls = true;
+	action_timer--;
+	
+	if (action_timer <= 0) {
+		action_timer = action_timer_max;
+		if (actions > 0) {
+			actions--;	
+			estado = choose(e_dash, e_smash, e_flank);
+			return;
+		}
+	}
+	
+	if (actions == 0) {
+		in_combo = false;
+        combo_count = 0;
+        attack_timer = 0;
+        timer_recovery = tempo_recovery;
+        estado = e_recovery;
+		darksouls = false;
+		image_speed = 0.6;
+	}
+}
+
+// Estado Boss: ataque Smough-like (um pulão, basicamente)
+e_smash = function() {
+    set_sprite(sprite_pulo);
+	
+    alvo = checa_area(area_perseguicao, obj_player);
+    if (!alvo || !instance_exists(alvo)) {
+        jump_started = false;
+        estado = e_rage;
+        return;
+    }
+
+    image_xscale = (alvo.x < x) ? 1 : -1;
+	
+	if (!in_combo) {
+        in_combo = true;
+    }
+
+    if (!jump_started) {
+        jump_started = true;
+        velh = 0;
+        velv = 0;
+        velz = -vel_pulo;
+
+        var ang = point_direction(alvo.x, alvo.y, x, y);
+		destino_x = alvo.x + lengthdir_x(random_range(20,50), ang);
+		destino_y = alvo.y + lengthdir_y(random_range(20,50), ang);
+    }
+
+    // Movimento horizontal durante o salto
+    mover_para(destino_x, destino_y, vel_movimento * 2.5);
+    z += velz;
+    velz += grav;
+
+    if (z >= 0) {
+        z = 0;
+        velz = 0;
+        jump_started = false;
+
+        var alcance = 45;
+        var dist = point_distance(x, y, alvo.x, alvo.y);
+        if (dist <= alcance) {
+            alvo.vida -= dano_ataque;
+            alvo.invincivel_timer = alvo.invincivel_max * 0.4;
+            alvo.dano_flash_timer = alvo.dano_flash_max;
+
+            if (alvo.vida < 0) alvo.vida = 0;
+
+            // Pequeno empurrão
+            var ang = point_direction(x, y, alvo.x, alvo.y);
+
+            alvo.velh += lengthdir_x(3, ang);
+            alvo.velv += lengthdir_y(3, ang);
+        }
+
+        estado = e_rage;
+    }
+}
+
+e_flank = function() {
+	set_sprite(sprite_move);
+	
+	alvo = checa_area(area_perseguicao, obj_player);
+    if (!alvo || !instance_exists(alvo)) {
+        jump_started = false;
+        estado = e_rage;
+        return;
+    }
+
+    image_xscale = (alvo.x < x) ? 1 : -1;
+	if (!in_combo) {
+        in_combo = true;
+		n_dash = irandom(5);
+        novo_destino = true;
+    }
+	
+	if (novo_destino) {
+        novo_destino = false;
+		timer_dash = timer_dash_max;
+		
+        var ang;
+        do {
+            ang = irandom(7) * 45;
+        } until (ang != ultimo_angulo);
+
+        ultimo_angulo = ang;
+		
+        var dist = 50;
+        destino_x = alvo.x + lengthdir_x(dist, ang);
+        destino_y = alvo.y + lengthdir_y(dist, ang);
+		destino_x = clamp(destino_x,40,room_width-40);
+		destino_y = clamp(destino_y,40,room_height-40);
+    }
+	
+	mover_para(destino_x, destino_y, vel_movimento * 3);
+	
+	 if (point_distance(x, y, destino_x, destino_y) < 15) {
+		timer_dash--;
+        n_dash--;
+		
+		if (timer_dash <= 0) {
+	        if (n_dash <= 0) {
+				in_combo = false;
+	            estado = e_dash;
+	        } else {
+	            novo_destino = true;
+	        }
+		}
     }
 }
 

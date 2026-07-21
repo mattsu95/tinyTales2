@@ -24,9 +24,8 @@ sprite_idle = spr_enemy_idle;
 sprite_move = spr_enemy_move;
 sprite_punch = spr_enemy_punch;
 sprite_shoot = spr_enemy_punch;
-
-// provocar no move_set de parry
 sprite_taunt = spr_enemy_idle;
+sprite_pulo = spr_enemy_idle;
 
 projectile = obj_projectile;
 
@@ -67,6 +66,11 @@ set_move_set = function(_mv) {
 	    case mvSet_parry:
 	        estado = e_taunt;
 	        break;
+			
+		case mvSet_darksouls:
+			actions = irandom(3) + 1;
+			estado  = e_rage;
+			break;
 	}
 }
 
@@ -126,6 +130,8 @@ mvSet_parry = function() {
 mvSet_darksouls = function() {
 	dado.image_index = 3;
 	
+	estado();
+	
 	if (roll_timer <= 0 && !in_combo) {
 		if (!dice_roll()) {
 			rnd_move_set();
@@ -155,4 +161,4 @@ mvSet_cake = function() {
 
 // move set atual
 mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_dash, mvSet_cake];
-set_move_set(mvSet[2]);
+set_move_set(mvSet[3]);
