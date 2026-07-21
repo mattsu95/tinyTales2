@@ -1,4 +1,4 @@
-﻿{
+{
   "$GMObject":"",
   "%Name":"obj_cutscene_enemy",
   "eventList":[],
