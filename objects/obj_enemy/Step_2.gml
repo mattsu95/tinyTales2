@@ -17,26 +17,33 @@ if (_player != noone) {
     var _novo_ataque = (_player.attack_sequence_id != ultimo_attack_id_recebido);
     
 	if (_ataque_ativo && _distancia <= alcance_hit && cooldown_dano <= 0 && _novo_ataque) {
-		vida -= dano_por_hit;
-		cooldown_dano = cooldown_dano_max;
-        ultimo_attack_id_recebido = _player.attack_sequence_id;
-        foi_atingido = true;
+		if (parry_window > 0 && parry_window != parry_window_max && parry) {
+			// SOM DE PARRY
+			combo_max = 3;
+			estado = e_combo;
+			parry_window = parry_window_max;
+		} else if (parry == false) {
+			vida -= dano_por_hit;
+			cooldown_dano = cooldown_dano_max;
+	        ultimo_attack_id_recebido = _player.attack_sequence_id;
+	        foi_atingido = true;
 
-        // pisca vermelho em todo hit, independente de stun
-        image_blend = merge_colour(c_white, c_red, 0.85);
-        flash_timer = 8; // frames que fica vermelho antes de voltar ao normal
+	        // pisca vermelho em todo hit, independente de stun
+	        image_blend = merge_colour(c_white, c_red, 0.85);
+	        flash_timer = 8; // frames que fica vermelho antes de voltar ao normal
 
-        // só stuna se não estiver em imunidade, stun já não estiver ativo
-        // e NÃO estiver atacando
-        var _hyper_armor = (estado == e_attack);
-        if (!stun_ativo && imunidade_stun <= 0 && !_hyper_armor) {
-            stun_ativo = true;
-            timer_stun = timer_stun_max;
-        }
+	        // só stuna se não estiver em imunidade, stun já não estiver ativo
+	        // e NÃO estiver atacando
+	        var _hyper_armor = (estado == e_attack);
+	        if (!stun_ativo && imunidade_stun <= 0 && !_hyper_armor) {
+	            stun_ativo = true;
+	            timer_stun = timer_stun_max;
+	        }
 		
-		if (vida <= 0) {
-			instance_destroy();
-			exit;
+			if (vida <= 0) {
+				instance_destroy();
+				exit;
+			}
 		}
 	}
 }
