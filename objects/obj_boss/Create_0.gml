@@ -17,8 +17,11 @@ area_visao = 20000;
 area_perseguicao = 35000;
 vida_max *= 3;
 vida = vida_max;
-vel_movimento *= 1.5;
-vel_ataque *= 1.5;
+vel_movimento_max = 1.5 * vel_movimento;
+vel_ataque_max = 1.5 * vel_ataque;
+cooldown_ataque_principal_max = game_get_speed(gamespeed_fps) * 3; // 3 segundos
+timer_ataque = cooldown_ataque_principal_max;
+tempo_recovery_max = game_get_speed(gamespeed_fps) * 1; // 1 segundo de parada
 
 sprite_idle = spr_enemy_idle;
 sprite_move = spr_enemy_move;
@@ -29,8 +32,8 @@ sprite_pulo = spr_enemy_idle;
 
 projectile = obj_projectile;
 
-// tempo em segundos pra cada troca (pelo menos pra primeira)
-roll_timer_max = game_get_speed(gamespeed_fps) * 5;
+// tempo em segundos pra cada troca
+roll_timer_max = game_get_speed(gamespeed_fps) * 20;
 roll_timer = roll_timer_max;
 
 // timer de 1 segundo pra troca de move_set
@@ -56,21 +59,46 @@ set_move_set = function(_mv) {
 
     switch (_mv) {
 	    case mvSet_melee:
+			roll_timer_max = game_get_speed(gamespeed_fps) * 15;
+			vel_movimento = vel_movimento_max;
+			tempo_recovery = tempo_recovery_max;
+			cooldown_ataque_principal = cooldown_ataque_principal_max;
 	        estado = e_search;
 	        break;
 
 	    case mvSet_range:
+			roll_timer_max = game_get_speed(gamespeed_fps) * 20;
+			vel_movimento = vel_movimento_max;
+			tempo_recovery = tempo_recovery_max;
+			cooldown_ataque_principal = cooldown_ataque_principal_max;
 	        estado = e_search;
 	        break;
 
 	    case mvSet_parry:
+			roll_timer_max = game_get_speed(gamespeed_fps) * 10;
+			vel_movimento = vel_movimento_max;
+			tempo_recovery = tempo_recovery_max;
+			cooldown_ataque_principal = cooldown_ataque_principal_max;
 	        estado = e_taunt;
 	        break;
 			
 		case mvSet_darksouls:
+			roll_timer_max = game_get_speed(gamespeed_fps) * 20;
+			vel_movimento = vel_movimento_max;
+			tempo_recovery = tempo_recovery_max;
+			cooldown_ataque_principal = cooldown_ataque_principal_max;
 			actions = irandom(3) + 1;
 			estado  = e_rage;
 			break;
+		case mvSet_berserker:
+			roll_timer_max = game_get_speed(gamespeed_fps) * 30;
+			vel_movimento *= 1.75;
+			tempo_recovery *= 0.25;
+			cooldown_ataque_principal *= 0.5;
+			combo_max = 2;
+			estado = e_search;
+		case mvSet_cake:
+			roll_timer_max = game_get_speed(gamespeed_fps) * 20;
 	}
 }
 
@@ -139,8 +167,10 @@ mvSet_darksouls = function() {
 	}
 }
 
-mvSet_dash = function() {
+mvSet_berserker = function() {
 	dado.image_index = 4;
+	
+	estado();
 	
 	if (roll_timer <= 0 && !in_combo) {
 		if (!dice_roll()) {
@@ -160,5 +190,5 @@ mvSet_cake = function() {
 }
 
 // move set atual
-mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_dash, mvSet_cake];
-set_move_set(mvSet[3]);
+mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_berserker, mvSet_cake];
+set_move_set(mvSet[4]);
