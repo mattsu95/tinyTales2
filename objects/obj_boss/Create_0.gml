@@ -15,6 +15,10 @@ sprite_index = spr_enemy_idle;
 // é um boss né
 area_visao = 20000;
 area_perseguicao = 35000;
+vida_max *= 3;
+vida = vida_max;
+vel_movimento *= 1.5;
+vel_ataque *= 1.5;
 
 sprite_idle = spr_enemy_idle;
 sprite_move = spr_enemy_move;

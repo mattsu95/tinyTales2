@@ -462,6 +462,7 @@ e_combo = function() {
             attack_timer = 0;
             timer_recovery = tempo_recovery;
             estado = e_recovery;
+			image_speed = 0.6
         } else {
             image_index = 0;
             combo_timer = combo_delay;
@@ -471,7 +472,7 @@ e_combo = function() {
 
 // Estado Boss: dash rapidão até o player
 e_dash = function() {
-    set_sprite(spr_enemy_move);
+    set_sprite(sprite_move);
 
     alvo = checa_area(area_perseguicao, obj_player);
     if (!alvo || !instance_exists(alvo)) {
@@ -480,9 +481,11 @@ e_dash = function() {
     }
 
     image_xscale = (alvo.x < x) ? 1 : -1;
+	
+	// DAR ALGUM AVISO, TIPO UMA PISCADA NA TELA OU UMA ANIMAÇÃO DIFERENTE 
 
     // Dash muito rápido
-    mover_para(alvo.x, alvo.y, vel_movimento * 4);
+    mover_para(alvo.x, alvo.y, vel_movimento * 6);
 
     var _dist = point_distance(x, y, alvo.x, alvo.y);
 
@@ -492,6 +495,7 @@ e_dash = function() {
         combo_count = 0;
 		combo_max = 1;
         estado = e_combo;
+		image_speed = 1.3;
     }
 }
 

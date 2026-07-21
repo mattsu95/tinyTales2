@@ -22,6 +22,8 @@ if (_player != noone) {
 			combo_max = 3;
 			estado = e_combo;
 			parry_window = parry_window_max;
+			_player.timer_stun = parry_stun_max;
+			_player.estado = _player.p_stunned;
 		} else if (parry == false) {
 			vida -= dano_por_hit;
 			cooldown_dano = cooldown_dano_max;
@@ -58,7 +60,7 @@ if (flash_timer > 0) {
 
 // --- STUN ---
 if (stun_ativo) {
-    sprite_index = spr_enemy_idle;
+    sprite_index = sprite_idle;
     velh = 0;
     velv = 0;
 

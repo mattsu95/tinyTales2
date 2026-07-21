@@ -123,3 +123,19 @@ else if (array_length(inventario) == 0)
 if (x < parede_invisivel_x) {
     x = parede_invisivel_x;
 }
+
+
+// Flash de parry
+else if (parry_flash_timer > 0) {
+
+    parry_flash_timer--;
+
+    if (parry_flash_timer mod 4 < 2) image_blend = merge_colour(c_white, c_red, 0.7);
+    else image_blend = c_white;
+}
+
+else {
+
+    image_blend = c_white;
+
+}

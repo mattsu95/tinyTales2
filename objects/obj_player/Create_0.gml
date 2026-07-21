@@ -18,6 +18,9 @@ parry_window     = 0;  // frames restantes de janela de parry
 parry_window_max = 15; // ~0.25s a 60fps — janela ativa logo ao pressionar F
 parry_stun_max   = game_get_speed(gamespeed_fps) * 1.5; // stun causado no inimigo pelo parry
 
+timer_stun = 0;
+parry_flash_timer = 20;
+
 // --- VARIÁVEIS DE MOVIMENTO E FÍSICA ---
 velh = 0;
 velv = 0;
@@ -183,6 +186,7 @@ p_idle = function() {
 
 p_walk = function() {
 	sprite_index = spr_player_walk;
+	parry_flash_timer = 20;
 	
 	if (defendendo) { estado = p_defend; return; }
 
@@ -453,6 +457,20 @@ p_dice_roll = function () {
 	}
 	
 	
+}
+
+p_stunned = function() {
+    sprite_index = spr_player_idle;
+    velh = 0;
+    velv = 0;
+
+    timer_stun--;
+    if (timer_stun <= 0) {
+        image_blend    = c_white;
+        estado = p_idle;
+		parry_flash_timer = 20;
+    }
+
 }
 
 // --- DEFINE O ESTADO INICIAL ---
