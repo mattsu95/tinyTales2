@@ -1,3 +1,6 @@
+// pra melhorar a escolha aleatória
+randomize();
+
 ideal_width = 1280; 
 ideal_height = 720;
 

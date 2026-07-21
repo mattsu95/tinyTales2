@@ -440,7 +440,7 @@ p_dice_roll = function () {
 	
 	if (mouse_check_button_released(mb_right)) {
 		// modificadores no x e y pra parecer sair da mão => AUTOMATIZAR ISSO DEPOIS
-		var dado = instance_create_layer(x + 5, y - 20, "Instances", obj_dado);
+		var dado = instance_create_layer(x + 5 * image_xscale, y - 20, "Instances", obj_dado);
 		
 		dice_cooldown = game_get_speed(gamespeed_fps) * 2;
 		

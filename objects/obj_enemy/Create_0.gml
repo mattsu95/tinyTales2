@@ -50,6 +50,23 @@ angulo_movimento = irandom(359);
 velocidade_angular = random_range(1, 2); // graus por frame
 distancia_alvo = 80 + irandom(30);
 
+// pra deixar as funções mais genéricas
+sprite_idle = spr_enemy_idle;
+sprite_move = spr_enemy_move;
+sprite_punch = spr_enemy_punch;
+sprite_shoot = spr_enemy_punch;
+sprite_taunt = spr_enemy_idle;
+
+projectile = obj_projectile;
+
+ranged = false;
+
+parry_window_max = 150 + irandom(120);
+parry_window     = parry_window_max;  // frames restantes de janela de parry
+parry_stun_max   = game_get_speed(gamespeed_fps) * 3; // stun causado no player pelo parry
+parry = false;
+
+
 checa_area = function(_tamanho = 0, _alvo = noone) {
 	if (_alvo == noone) { return false; }
 	return collision_circle(x, y, _tamanho, _alvo, 0, 1);
@@ -73,7 +90,7 @@ mover_para = function(_tx, _ty, _spd) {
 
 // Estado 1: Procurando pelo player
 e_search = function() {
-	set_sprite(spr_enemy_idle);
+	set_sprite(sprite_idle);
 	velh = 0; velv = 0;
 	
 	alvo = checa_area(area_visao, obj_player);
@@ -84,7 +101,7 @@ e_search = function() {
 
 // Estado 2: Circulando ao redor do player (movimento aleatório em volta)
 e_circling = function() {
-	set_sprite(spr_enemy_move);
+	set_sprite(sprite_move);
 	
 	alvo = checa_area(area_perseguicao, obj_player);
 	if (!alvo || !instance_exists(alvo)) {
@@ -98,7 +115,8 @@ e_circling = function() {
 	// Movimento aleatório ao redor do player
 	angulo_movimento += random_range(-velocidade_angular, velocidade_angular);
 	var _tx = alvo.x + lengthdir_x(distancia_alvo, angulo_movimento);
-	var _ty = alvo.y + lengthdir_y(distancia_alvo, angulo_movimento);
+	var _ty = ranged ? alvo.y + lengthdir_y(floor(distancia_alvo / 10), angulo_movimento)
+					 : alvo.y + lengthdir_y(distancia_alvo, angulo_movimento);
 	
 	// Clamp para ficar dentro do mapa
 	_tx = clamp(_tx, 40, room_width - 40);
@@ -110,13 +128,13 @@ e_circling = function() {
 	// Decrementa timer de ataque
 	timer_ataque--;
 	if (timer_ataque <= 0) {
-		estado = e_approach;
+		estado = estado_ofensivo;
 	}
 }
 
 // Estado 2.5: Aproximação rápida antes do ataque (com token check)
 e_approach = function() {
-	set_sprite(spr_enemy_move);
+	set_sprite(sprite_move);
 	
 	alvo = checa_area(area_perseguicao, obj_player);
 	if (!alvo || !instance_exists(alvo)) {
@@ -150,14 +168,16 @@ e_approach = function() {
 	// Quando chega perto o suficiente, ataca
 	var _dist = point_distance(x, y, alvo.x, alvo.y);
 	if (_dist <= alcance_hit) {
-		estado = e_attack;
+		estado = estado_ataque;
 	}
 }
+
+
 
 // Estado 3: Atacando (combo de 2-3 socos)
 e_attack = function() {
 	velh = 0; velv = 0;
-	set_sprite(spr_enemy_punch);
+	set_sprite(sprite_punch);
 	
 	alvo = checa_area(area_perseguicao, obj_player);
 	if (!alvo || !instance_exists(alvo)) {
@@ -216,9 +236,9 @@ e_attack = function() {
 				alvo.invincivel_timer = alvo.invincivel_max * 0.4; // Reduz immunity para combo pegar
 				alvo.dano_flash_timer = alvo.dano_flash_max; // Ativa efeito visual de dano na HUD
 				if (alvo.vida < 0) alvo.vida = 0;
-				combo_count++;
 			}
 		}
+		combo_count++;
 	}
 	
 	// Termina a animação de 1 soco
@@ -240,9 +260,75 @@ e_attack = function() {
 	}
 }
 
+// Variação Estado 3: Ataque à distância
+e_shoot = function() {
+	velh = 0; velv = 0;
+	set_sprite(sprite_shoot)
+	
+	image_xscale = (alvo.x < x) ? 1 : -1;
+	
+	alvo = checa_area(area_perseguicao, obj_player);
+	if (!alvo || !instance_exists(alvo)) {
+		in_combo = false;
+		combo_count = 0;
+		attack_timer = 0;
+		estado = e_recovery;
+		return;
+	}
+	
+	// No primeiro frame do ataque, inicia combo
+	if (!in_combo) {
+		in_combo = true;
+		combo_count = 0;
+		combo_max = irandom_range(1, 2);
+		attack_timer = 0;
+	}
+	
+	// Timeout de segurança: se ficar muito tempo atacando, força saída
+	attack_timer++;
+	if (attack_timer > attack_timeout) {
+		in_combo = false;
+		combo_count = 0;
+		attack_timer = 0;
+		timer_recovery = tempo_recovery;
+		estado = e_recovery;
+		return;
+	}
+	
+	// dispara em algum frame da animação
+	if (!hit_this_swing && image_index >= floor(image_number * 0.5)) {
+		hit_this_swing = true;
+		
+		// modificadores no x e y pra parecer sair da mão => AUTOMATIZAR ISSO DEPOIS
+		var projetil = instance_create_layer(x + 5 * image_xscale, y - 10, "Instances", projectile);
+		
+		// IMPLEMENTAR!!!!!!!
+		//projetil.velh = image_xscale * 5;
+		//projetil.shoot();
+	}
+	
+	if (image_index > image_number - 1) {
+		combo_count++;
+		hit_this_swing = false;
+		
+		// Se fez todos os disparos do combo, volta para recovery
+		if (combo_count >= combo_max) {
+			in_combo = false;
+			combo_count = 0;
+			attack_timer = 0;
+			timer_recovery = tempo_recovery;
+			estado = e_recovery;
+		} else {
+			// Reinicia animação para próximo hit
+			image_index = 0;
+			combo_timer = combo_delay;
+		}
+	}
+}
+
 // Estado 4: Recovery - parado por 1 segundo após ataque
 e_recovery = function() {
-	set_sprite(spr_enemy_idle);
+	set_sprite(sprite_idle);
 	velh = 0; velv = 0;
 	
 	alvo = checa_area(area_perseguicao, obj_player);
@@ -265,4 +351,152 @@ e_recovery = function() {
 	}
 }
 
+// Estado boss: provocar ataque
+e_taunt = function(){
+	set_sprite(sprite_taunt);
+	velh = 0; velv = 0;
+	
+	alvo = checa_area(area_perseguicao, obj_player);
+	if (!alvo || !instance_exists(alvo)) {
+		estado = e_search;
+		return;
+	}
+	
+	image_xscale = (alvo.x < x) ? 1 : -1;
+	
+	if (parry_window > 0) {
+		parry = true;
+		parry_window--;
+	}
+	else {
+		parry = false;
+		parry_window = parry_window_max;
+		estado = e_dash;
+	}
+}
+
+// Estado boss: combo de n hits (dava pra só refatorar a função de ataque normal, mas nah)
+e_combo = function() {
+
+    velh = 0;
+    velv = 0;
+
+    set_sprite(spr_enemy_punch);
+
+    alvo = checa_area(area_perseguicao, obj_player);
+
+    if (!alvo || !instance_exists(alvo)) {
+        in_combo = false;
+        combo_count = 0;
+        attack_timer = 0;
+
+        estado = e_recovery;
+		parry = false;
+        return;
+    }
+
+    image_xscale = (alvo.x < x) ? 1 : -1;
+
+    attack_timer++;
+    if (attack_timer > attack_timeout * 2) {
+		show_message("entrou!");
+        in_combo = false;
+        combo_count = 0;
+        attack_timer = 0;
+
+        timer_recovery = tempo_recovery;
+        estado = e_recovery;
+		parry = false;
+        return;
+    }
+
+    // inicia combo
+    if (!in_combo) {
+        in_combo = true;
+        combo_count = 0;
+        attack_timer = 0;
+    }
+
+    if (!hit_this_swing && image_index >= floor(image_number * 0.5)) {
+        hit_this_swing = true;
+
+        var _dist = point_distance(x, y, alvo.x, alvo.y);
+        if (_dist <= alcance_hit) {
+            if (alvo.parry_window > 0) {
+                alvo.image_blend = make_colour_rgb(255,220,50);
+                alvo.invincivel_timer = alvo.invincivel_max;
+
+                stun_ativo = true;
+                timer_stun = alvo.parry_stun_max;
+
+                hit_this_swing = false;
+                in_combo = false;
+                combo_count = 0;
+                attack_timer = 0;
+
+                timer_recovery = tempo_recovery;
+                estado = e_recovery;
+				parry = false;
+                return;
+            }
+
+            var dano = alvo.defendendo ? dano_ataque * 0.5 : dano_ataque;
+            alvo.vida -= dano;
+            alvo.invincivel_timer = alvo.invincivel_max * 0.4;
+            alvo.dano_flash_timer = alvo.dano_flash_max;
+
+            if (alvo.vida < 0)
+                alvo.vida = 0; 
+        }
+		combo_count++;
+    }
+
+    // fim da animação
+    if (image_index > image_number - 1) {
+        hit_this_swing = false;
+		
+        if (combo_count >= combo_max) {
+            in_combo = false;
+			parry = false;
+            combo_count = 0;
+            attack_timer = 0;
+            timer_recovery = tempo_recovery;
+            estado = e_recovery;
+        } else {
+            image_index = 0;
+            combo_timer = combo_delay;
+        }
+    }
+}
+
+// Estado Boss: dash rapidão até o player
+e_dash = function() {
+    set_sprite(spr_enemy_move);
+
+    alvo = checa_area(area_perseguicao, obj_player);
+    if (!alvo || !instance_exists(alvo)) {
+        estado = e_search;
+        return;
+    }
+
+    image_xscale = (alvo.x < x) ? 1 : -1;
+
+    // Dash muito rápido
+    mover_para(alvo.x, alvo.y, vel_movimento * 4);
+
+    var _dist = point_distance(x, y, alvo.x, alvo.y);
+
+    if (_dist <= alcance_hit) {
+        attack_timer = 0;
+        in_combo = false;
+        combo_count = 0;
+		combo_max = 1;
+        estado = e_combo;
+    }
+}
+
 estado = e_search;
+
+// estados genéricos de ataque
+estado_ofensivo = e_approach;
+estado_ataque   = e_attack;
