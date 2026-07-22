@@ -181,7 +181,7 @@ p_idle = function() {
 	
 	if (jump)   { estado = p_jump; }
 	if (attack && attack_cooldown <= 0) { estado = p_attack; }
-	if (roll_dice && array_length(inventario) > 0 && dice_cooldown <= 0) { estado = p_dice_roll; }
+	if (roll_dice && !inventario_vazio() && dice_cooldown <= 0) { estado = p_dice_roll; }
 }
 
 p_walk = function() {
@@ -198,7 +198,7 @@ p_walk = function() {
 	
 	if (jump)   { estado = p_jump; }
 	if (attack && attack_cooldown <= 0) { estado = p_attack; }
-	if (roll_dice && array_length(inventario) > 0 && dice_cooldown <= 0) { estado = p_dice_roll; }
+	if (roll_dice && !inventario_vazio() && dice_cooldown <= 0) { estado = p_dice_roll; }
 }
 
 p_defend = function() {
@@ -493,4 +493,17 @@ escolhe_item = function() {
 	inventario[indice] = noone;
 
 	return item;
+}
+
+inventario_vazio = function() {
+	if (array_length(inventario) <= 0) {
+		return true;
+	}
+	
+	// checa se todos os itens são noone
+	if (array_all(inventario, function(_item, _index) { return (_item == noone); })) {
+		return true;
+	}
+	
+	return false;
 }
