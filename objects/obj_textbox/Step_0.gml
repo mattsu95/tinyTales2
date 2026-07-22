@@ -37,11 +37,16 @@ if (_tem_tempo_limite) {
         }
     }
     
-    // O clique/espaço SÓ funciona se o texto tiver tempo limite (para pular o tempo dele)
-    if (keyboard_check_pressed(vk_space) or mouse_check_button_pressed(mb_left)) {
+    // --- TECLAS PARA AVANÇAR / PULAR ---
+    // Agora aceita ENTER (vk_enter), ESPAÇO (vk_space) e CLIQUE (mb_left)
+    var _apertou_avancar = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space) || mouse_check_button_pressed(mb_left);
+    
+    if (!ignorar_inputs && _apertou_avancar) {
         if (caractere_atual < string_length(_texto_completo)) {
+            // Se o texto ainda está escrevendo, completa ele instantaneamente
             caractere_atual = string_length(_texto_completo); 
         } else {
+            // Se já escreveu tudo, passa para a próxima página ou fecha
             timer_auto_sumir = 0; 
             pagina_atual++;
             caractere_atual = 0; 

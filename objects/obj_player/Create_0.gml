@@ -363,16 +363,16 @@ p_bike = function() {
 }
 
 p_cutscene = function() {
-    // Trava as velocidades para ignorar o teclado completamente
     velh = 0;
     velv = 0;
     image_speed = 1; 
     
-    // SÓ se liberta se AMBOS os controladores de cutscene não existirem mais!
-    if (!instance_exists(obj_cutscene_dog) and !instance_exists(obj_cutscene_enemy)) {
+    // Trava o player se QUALQUER um dos gatilhos/cutscenes existir!
+    if (!instance_exists(obj_cutscene_dog) and !instance_exists(obj_cutscene_enemy) and !instance_exists(obj_cutscene_bueiro) and !instance_exists(obj_gatilho_unioeste)) {
         estado = p_idle;
     }
 }
+
 p_fuga = function() {
     sprite_index = spr_player_walk;
     

@@ -18,11 +18,14 @@ if (instance_exists(obj_player)) {
             atendeu = true;
             audio_stop_sound(ToqueMotorola);
             
-            // Trava o player só na hora de conversar
+            // Trava o player E zera as velocidades e o sprite!
             obj_player.estado = obj_player.p_cutscene;
+            obj_player.velh = 0;
+            obj_player.velv = 0;
+            obj_player.sprite_index = spr_player_idle; // <-- FORÇA O PLAYER A FICAR PARADO
             
-            // Cria o diálogo
-            var _caixa = instance_create_layer(0, 0, "Instances_1", obj_textbox);
+            // Cria o diálogo na frente de tudo (Depth -9999)
+            var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
             _caixa.falas = [
                 { nome: "Tini", texto: "Fala, fih! Que foi?", maquina: true, tempo: 2 },
                 { nome: "thigas (Celular)", texto: "Mano, CADÊ VOCÊ?! O professor já tá fechando a sala!", maquina: true, tempo: 3.5 },
