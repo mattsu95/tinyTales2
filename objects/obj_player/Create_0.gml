@@ -438,7 +438,7 @@ p_dice_roll = function () {
 	
 	
 	if (mouse_check_button(mb_right)) {
-		if (roll_range < 25) roll_range++;
+		if (roll_range < 50) roll_range++;
 		image_index = 0;
 	} 
 	
@@ -448,10 +448,11 @@ p_dice_roll = function () {
 		
 		dice_cooldown = game_get_speed(gamespeed_fps) * 2;
 		
-		dado.dir = image_xscale;
-		dado.velh = image_xscale * (roll_range * 0.1);
-		dado.velz = -(2 + roll_range * 0.1);
-		dado.item = escolhe_item();
+		dado.dir	= image_xscale;
+		dado.velh	= image_xscale * (roll_range * 0.5 * 0.1);
+		dado.velz	= -(2 + roll_range * 0.5 * 0.1);
+		dado.item	= escolhe_item();
+		dado.velang = image_xscale * (roll_range * 0.75 * random_range(0.5, 0.9)); 
 		
 		dado.roll();
 	}
