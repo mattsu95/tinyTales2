@@ -35,7 +35,7 @@ grav     = 0.2; // Gravidade aplicada no eixo Z
 z        = 0;   // Altura do pulo
 is_on_air = false; // Inicializa antes de usar em control_player
 
-tap_window = 12; // Janela (em frames) para detectar duplo toque
+tap_window = 25; // Janela (em frames) para detectar duplo toque (ficou mais fácil e natural correr)
 tap_left_timer  = 0;
 tap_right_timer = 0;
 tap_up_timer    = 0;
@@ -89,7 +89,7 @@ control_player = function() {
 	left		= keyboard_check(ord("A"));
 	down		= keyboard_check(ord("S"));
 	right		= keyboard_check(ord("D"));
-	jump		= keyboard_check_pressed(vk_space);
+	jump		= false; // Pulo desativado
 	attack		= mouse_check_button_pressed(mb_left);
 	roll_dice	= mouse_check_button(mb_right);
 
@@ -155,7 +155,7 @@ control_player = function() {
 control_fuga = function() {
     up   = keyboard_check(ord("W"));
     down = keyboard_check(ord("S"));
-    jump = keyboard_check_pressed(vk_space);
+    jump = false; // Pulo desativado
 
 	var _vel_atual = vel_fuga - perda_velocidade;
 	if (_vel_atual < 0) _vel_atual = 0;
@@ -179,7 +179,6 @@ p_idle = function() {
 		estado = p_walk;
 	}
 	
-	if (jump)   { estado = p_jump; }
 	if (attack && attack_cooldown <= 0) { estado = p_attack; }
 	if (roll_dice && !inventario_vazio() && dice_cooldown <= 0) { estado = p_dice_roll; }
 }
@@ -196,7 +195,6 @@ p_walk = function() {
 		estado = p_idle;
 	}
 	
-	if (jump)   { estado = p_jump; }
 	if (attack && attack_cooldown <= 0) { estado = p_attack; }
 	if (roll_dice && !inventario_vazio() && dice_cooldown <= 0) { estado = p_dice_roll; }
 }

@@ -1,8 +1,8 @@
 // --- HUD DE VIDA ESTILO ARCADE ---
 var _margem_x = 10;
 var _margem_y = 10;
-var _largura_barra = 200;
-var _altura_barra = 24;
+var _largura_barra = 120;
+var _altura_barra = 16;
 
 // Calcula a vida em percentual
 var _vida_perc = vida / vida_max;
@@ -66,7 +66,7 @@ draw_set_alpha(1);
 draw_set_font(fnt_dialogo);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_text(_margem_x + _largura_barra / 2 + _offset_x, _margem_y + _altura_barra / 2 + _offset_y, string(ceil(vida)) + "/" + string(vida_max));
+draw_text_transformed(_margem_x + _largura_barra / 2 + _offset_x, _margem_y + _altura_barra / 2 + _offset_y, string(ceil(vida)) + "/" + string(vida_max), 0.65, 0.65, 0);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_font(-1);
