@@ -1,7 +1,7 @@
 array_push(other.inventario, {
     nome: nome_item,
-    sprite: spr_pocao,
-	objeto: obj_pocao,
+    sprite: asset_get_index(sprite_item),
+	objeto: asset_get_index(objeto_item),
 	efeito: efeito_item
 });
 

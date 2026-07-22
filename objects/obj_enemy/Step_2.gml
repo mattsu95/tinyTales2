@@ -41,11 +41,6 @@ if (_player != noone) {
 	            stun_ativo = true;
 	            timer_stun = timer_stun_max;
 	        }
-		
-			if (vida <= 0) {
-				instance_destroy();
-				exit;
-			}
 		}
 	}
 }
@@ -102,6 +97,11 @@ with (obj_enemy) {
 			y += (_dy / _d) * _forca;
 		}
 	}
+}
+
+if (vida <= 0) {
+	instance_destroy();
+	exit;
 }
 
 // MOVIMENTAÇÃO (SEM CLAMP ANTES - deixa fazer o movimento naturalmente)
