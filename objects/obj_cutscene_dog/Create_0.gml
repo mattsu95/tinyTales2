@@ -31,6 +31,7 @@ cutscene = [
     
 	// --- PARTE 2.5: A EMBOSCADA (NOVA PARTE) ---
     [cutscene_stop_chase],                                      // Freia o player e os 5 cachorros da esquerda
+	[cutscene_play_sound, dogs2, 1, false],
     [cutscene_spawn_and_move_dogs_right, 3, 50, 1.2],          // 3 cachorros aparecem da direita e param
     [cutscene_wait, 1],                                       // Pausa dramática para o jogador processar
     [cutscene_stop_sound, Bad_Piggies_Theme],                   // Corta a música de fuga bruscamente
@@ -48,6 +49,7 @@ cutscene = [
     // --- PARTE 4: A CONVERSA FIADA ---
     [cutscene_dialogueDog, [{ nome: "Jogador", texto: "Calma, Tini!!!", maquina: true, tempo: 1.5 }]],
     [cutscene_dialogueDog, [{ nome: "Jogador", texto: "Eu te salvo dessa!", maquina: true, tempo: 1.8 }]],
+    [cutscene_dogs_right_run_away, 1.3, 1.3], // Os 3 cachorros da frente fogem correndo em diagonal para baixo e liberam caminho!
     [cutscene_dialogueDog, [{ nome: "Tini", texto: "Oloco, fi, sério?", maquina: true, tempo: 1.5 }]],
     [cutscene_dialogueDog, [{ nome: "Tini", texto: "Boto fé!", maquina: true, tempo: 1.5 }]],
     [cutscene_wait, 2],

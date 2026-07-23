@@ -72,8 +72,8 @@ parry = false;
 // Boss' specifics
 darksouls = false; // flag que indica se tá no moveset darksouls
 actions = 0;	   // Número de ações por estado de frenesi
-action_timer_max = game_get_speed(gamespeed_fps) * 1;
-action_timer = 0;
+action_timer_max = game_get_speed(gamespeed_fps) * 0.5;
+action_timer = action_timer_max;
 vel_pulo = 15;
 jump_started = false;
 destino_x = x;
@@ -519,7 +519,7 @@ e_dash = function() {
         combo_count = 0;
 		combo_max = 1;
         estado = e_combo;
-		image_speed = 1.3;
+		image_speed = 1.5;
     }
 }
 
@@ -532,7 +532,8 @@ e_rage = function() {
 	if (action_timer <= 0) {
 		action_timer = action_timer_max;
 		if (actions > 0) {
-			actions--;	
+			actions--;
+			in_combo = false;
 			estado = choose(e_dash, e_smash, e_flank);
 			return;
 		}
@@ -599,8 +600,8 @@ e_smash = function() {
             // Pequeno empurrão
             var ang = point_direction(x, y, alvo.x, alvo.y);
 
-            alvo.velh += lengthdir_x(3, ang);
-            alvo.velv += lengthdir_y(3, ang);
+            alvo.x += lengthdir_x(20, ang);
+            alvo.y += lengthdir_y(20, ang);
         }
 
         estado = e_rage;

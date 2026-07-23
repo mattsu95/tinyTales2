@@ -14,6 +14,20 @@ if (game_over) {
     exit;
 }
 
+// --- MORTE PELOS DOGS ---
+if (pego_pelos_dogs) {
+    velh = 0;
+    velv = 0;
+    sprite_index = spr_player_idle;
+    timer_morte_dogs--;
+    
+    if (timer_morte_dogs <= 0 || ((240 - timer_morte_dogs > 30) && (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)))) {
+        pego_pelos_dogs = false;
+        respawn_player_checkpoint();
+    }
+    exit;
+}
+
 // --- DEFESA ---
 defendendo = keyboard_check(ord("C"));
 
@@ -122,6 +136,12 @@ else if (array_length(inventario) == 0)
 
 if (x < parede_invisivel_x) {
     x = parede_invisivel_x;
+}
+
+// BARREIRA DA BICICLETA EM UNIOESTE1: Impede avanço a pé se a bicicleta ainda estiver no chão
+if (room == Unioeste1 && !ta_de_bike && instance_exists(obj_bicicleta) && x >= 5150) {
+    x = 5150;
+    if (velh > 0) velh = 0;
 }
 
 

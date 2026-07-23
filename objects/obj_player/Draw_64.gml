@@ -101,6 +101,43 @@ if (game_over) {
     exit;
 }
 
+// --- TELA DE MORTE PELOS DOGS ---
+if (pego_pelos_dogs) {
+    var _gw = display_get_gui_width();
+    var _gh = display_get_gui_height();
+
+    // 1. Fundo 100% preto
+    draw_set_color(c_black);
+    draw_set_alpha(1.0);
+    draw_rectangle(0, 0, _gw, _gh, false);
+
+    // 2. Sprite do cachorro no fundo da tela (ampliado no centro)
+    if (sprite_exists(spr_dog1_idle)) {
+        var _subimg = (current_time / 180) mod sprite_get_number(spr_dog1_idle);
+        draw_sprite_ext(spr_dog1_idle, _subimg, _gw / 2, _gh / 2 - 25, 4.0, 4.0, 0, c_white, 0.75);
+    }
+
+    // 3. Frase centralizada
+    draw_set_font(fnt_dialogo);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    
+    // Sombra do texto
+    draw_set_color(c_red);
+    draw_text_transformed(_gw / 2 + 2, _gh / 2 + 55, "Você foi pego pelos dogs!", 1.25, 1.25, 0);
+    
+    // Texto principal
+    draw_set_color(c_white);
+    draw_text_transformed(_gw / 2, _gh / 2 + 53, "Você foi pego pelos dogs!", 1.25, 1.25, 0);
+    
+    // Reseta configurações de desenho
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_font(-1);
+    draw_set_alpha(1.0);
+    exit;
+}
+
 // Centro da tela
 var centro_x = display_get_gui_width() / 2;
 var centro_y = display_get_gui_height() / 2;
