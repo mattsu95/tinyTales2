@@ -76,6 +76,8 @@ draw_set_alpha(1);
 if (game_over) {
     var _gw = display_get_gui_width();
     var _gh = display_get_gui_height();
+	
+	draw_set_font(fnt_dialogo);
 
     // fundo escuro semi-transparente
     draw_set_alpha(0.7);
@@ -101,6 +103,7 @@ if (game_over) {
     exit;
 }
 
+draw_set_font(-1);
 // --- TELA DE MORTE PELOS DOGS ---
 if (pego_pelos_dogs) {
     var _gw = display_get_gui_width();

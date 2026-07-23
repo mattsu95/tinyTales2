@@ -3,9 +3,9 @@ draw_sprite_ext(
     image_index,
     display_get_gui_width() / 2,
     display_get_gui_height() / 2 + 7 * y,
-    12,    // escala X
-    12,    // escala Y
+    5,    // escala X
+    5,    // escala Y
     0,     // rotação
     c_white,
-    1      // alpha
+    0.8      // alpha
 );
