@@ -19,6 +19,7 @@ if (_player != noone) {
 	if (_ataque_ativo && _distancia <= alcance_hit && cooldown_dano <= 0 && _novo_ataque) {
 		if (parry_window > 0 && parry_window != parry_window_max && parry) {
 			// SOM DE PARRY
+			audio_play_sound(parry_sfx, 1, false);
 			combo_max = 3;
 			estado = e_combo;
 			parry_window = parry_window_max;

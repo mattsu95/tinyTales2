@@ -79,6 +79,7 @@ set_move_set = function(_mv) {
 			vel_movimento = vel_movimento_max;
 			tempo_recovery = tempo_recovery_max;
 			cooldown_ataque_principal = cooldown_ataque_principal_max;
+			som = audio_play_sound(evil_laugh, 1, false);
 	        estado = e_taunt;
 	        break;
 			

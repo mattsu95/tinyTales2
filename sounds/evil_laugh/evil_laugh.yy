@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"evil_laugh",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":5.4240136,
+  "exportDir":"",
+  "name":"evil_laugh",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"evil_laugh.mp3",
+  "volume":1.0,
+}

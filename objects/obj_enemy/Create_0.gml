@@ -83,6 +83,7 @@ novo_destino = true;
 ultimo_angulo = -1;
 timer_dash_max = game_get_speed(gamespeed_fps) * 0.5;
 timer_dash = 0;
+som = noone;
 
 
 checa_area = function(_tamanho = 0, _alvo = noone) {
@@ -234,6 +235,7 @@ e_attack = function() {
 		if (_dist <= alcance_hit) {
 			// Checa PARRY - se der parry, cancela TODO o combo
 			if (alvo.parry_window > 0) {
+				audio_play_sound(parry_sfx, 1, false);
 				alvo.image_blend = make_colour_rgb(255, 220, 50);
 				alvo.invincivel_timer = alvo.invincivel_max;
 				stun_ativo = true;
@@ -440,6 +442,7 @@ e_combo = function() {
         var _dist = point_distance(x, y, alvo.x, alvo.y);
         if (_dist <= alcance_hit) {
             if (alvo.parry_window > 0) {
+				audio_play_sound(parry_sfx, 1, false);
                 alvo.image_blend = make_colour_rgb(255,220,50);
                 alvo.invincivel_timer = alvo.invincivel_max;
 
@@ -584,11 +587,12 @@ e_smash = function() {
     velz += grav;
 
     if (z >= 0) {
+		audio_play_sound(ground_impact, 1, false);
         z = 0;
         velz = 0;
         jump_started = false;
 
-        var alcance = 45;
+        var alcance = 60;
         var dist = point_distance(x, y, alvo.x, alvo.y);
         if (dist <= alcance) {
             alvo.vida -= dano_ataque;
