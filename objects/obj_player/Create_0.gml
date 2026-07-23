@@ -376,7 +376,7 @@ p_cutscene = function() {
     image_speed = 1; 
     
     // Trava o player se QUALQUER um dos gatilhos/cutscenes existir!
-    if (!instance_exists(obj_cutscene_dog) and !instance_exists(obj_cutscene_enemy) and !instance_exists(obj_cutscene_bueiro) and !instance_exists(obj_gatilho_unioeste)) {
+    if (!instance_exists(obj_cutscene_dog) and !instance_exists(obj_cutscene_enemy) and !instance_exists(obj_cutscene_bueiro) and !instance_exists(obj_gatilho_unioeste) and !instance_exists(obj_cutscene_roubo)) {
         estado = p_idle;
     }
 }
@@ -493,7 +493,7 @@ escolhe_item = function() {
 	
 	slots_ocupados = [];
 	for (i = 0; i < array_length(inventario); i++) {
-		if (inventario[i]) { array_push(slots_ocupados, i); }
+		if (inventario[i] != noone) { array_push(slots_ocupados, i); }
 	}
 	var sorteado = irandom(array_length(slots_ocupados) - 1);
 	var indice = slots_ocupados[sorteado];

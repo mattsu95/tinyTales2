@@ -56,7 +56,7 @@ if (ativado) {
             if (point_distance(_cam_x, _cam_y, _dest_x, _dest_y) < 10) {
                 var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
                 _caixa.falas = [
-                    { nome: "Rizzi", texto: "Acho que ninguém mais vem...", maquina: true, tempo: 2.5 }
+                    { nome: "Professor", texto: "Acho que ninguém mais vem...", maquina: true, tempo: 2.5 }
                 ];
                 
                 etapa = 1;

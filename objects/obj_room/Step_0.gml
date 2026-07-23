@@ -1,3 +1,24 @@
+// Vincula e configura a vida dos inimigos do tutorial se ainda não foram vinculados
+if (!inimigo1_criado) {
+    var _in1 = instance_nearest(672, 160, obj_enemy);
+    if (instance_exists(_in1) && point_distance(_in1.x, _in1.y, 672, 160) < 150) {
+        inimigo1 = _in1;
+        inimigo1.vida_max = 5;
+        inimigo1.vida = 5;
+        inimigo1_criado = true;
+    }
+}
+
+if (!inimigo2_criado) {
+    var _in2 = instance_nearest(1152, 160, obj_enemy);
+    if (instance_exists(_in2) && point_distance(_in2.x, _in2.y, 1152, 160) < 150) {
+        inimigo2 = _in2;
+        inimigo2.vida_max = 15;
+        inimigo2.vida = 15;
+        inimigo2_criado = true;
+    }
+}
+
 if (instance_exists(obj_player)) {
     
     // --- ETAPA 1: MOVIMENTAÇÃO E CORRIDA (Ao passar do pixel 50) ---
@@ -11,8 +32,8 @@ if (instance_exists(obj_player)) {
         etapa_tutorial = 1; 
     } 
     
-    // --- ETAPA 2: ENSINA A ATACAR (Ao passar do pixel 660) ---
-    else if (etapa_tutorial == 1 && obj_player.x > 660) {
+    // --- ETAPA 2: ENSINA A ATACAR (Ao se aproximar do 1º inimigo - pixel 450) ---
+    else if (etapa_tutorial == 1 && obj_player.x > 450) {
         if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
 
         var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
@@ -33,19 +54,20 @@ if (instance_exists(obj_player)) {
         etapa_tutorial = 3; 
     }
     
-    // --- ETAPA 3: PEGAR ITENS DO CHÃO (Ao passar do pixel 900) ---
-    else if (etapa_tutorial == 3 && obj_player.x > 900) {
+    // --- ETAPA 3: DERROTA DO INIMIGO 1 (Apenas avança e destrói a barreira 1 quando o monstro morrer) ---
+    else if (etapa_tutorial == 3 && inimigo1_criado && !instance_exists(inimigo1)) {
+        if (instance_exists(barreira1)) instance_destroy(barreira1);
         if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
 
         var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
-        _caixa.falas = [{ texto: "Pegue os itens do chão!", maquina: false, tempo: 4 }];
+        _caixa.falas = [{ texto: "Muito bem! Agora pegue os itens do chão!", maquina: false, tempo: 4 }];
         _caixa.ignorar_inputs = true;
         
         etapa_tutorial = 4; 
     }
     
-    // --- ETAPA 4: INVENTÁRIO (Ao pegar item do chão / passar do pixel 980) ---
-    else if (etapa_tutorial == 4 && (!obj_player.inventario_vazio() || obj_player.x > 1000)) {
+    // --- ETAPA 4: INVENTÁRIO (Ao pegar o item do chão) ---
+    else if (etapa_tutorial == 4 && (!obj_player.inventario_vazio() || obj_player.x > 800)) {
         if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
 
         var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
@@ -55,23 +77,24 @@ if (instance_exists(obj_player)) {
         etapa_tutorial = 5; 
     }
     
-    // --- ETAPA 5: ROLAR DADOS / USAR CONSUMÍVEL (Ao abrir inventário / passar do pixel 1050) ---
-    else if (etapa_tutorial == 5 && (obj_player.mostrar_inventario || obj_player.x > 1200)) {
+    // --- ETAPA 5: ENSINA A JOGAR/USAR CONSUMÍVEL DA POÇÃO ---
+    else if (etapa_tutorial == 5 && (obj_player.mostrar_inventario || obj_player.x > 950)) {
         if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
 
         var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
-        _caixa.falas = [{ texto: "Usando o Botão Direito você consegue rolar os dados para usar o item consumível...", maquina: false, tempo: 5 }];
+        _caixa.falas = [{ texto: "Segure e solte o Botão Direito do mouse para rolar o dado e jogar a poção no inimigo!", maquina: false, tempo: 6 }];
         _caixa.ignorar_inputs = true;
         
         etapa_tutorial = 6; 
     }
     
-    // --- ETAPA 6: ACERTAR O INIMIGO COM O CONSUMÍVEL ---
-    else if (etapa_tutorial == 6 && (obj_player.estado == obj_player.p_dice_roll || obj_player.x > 1300)) {
+    // --- ETAPA 6: DERROTA DO INIMIGO 2 (Apenas avança e destrói a barreira 2 quando o inimigo 2 for morto) ---
+    else if (etapa_tutorial == 6 && inimigo2_criado && !instance_exists(inimigo2)) {
+        if (instance_exists(barreira2)) instance_destroy(barreira2);
         if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
 
         var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
-        _caixa.falas = [{ texto: "Agora use o item consumível para acertar o inimigo!", maquina: false, tempo: 4 }];
+        _caixa.falas = [{ texto: "Excelente! Você derrotou os monstrengos e aprendeu o básico!", maquina: false, tempo: 5 }];
         _caixa.ignorar_inputs = true;
         
         etapa_tutorial = 7; // Fim do tutorial!

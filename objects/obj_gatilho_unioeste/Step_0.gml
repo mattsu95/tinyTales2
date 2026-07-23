@@ -21,7 +21,7 @@ if (!ativado && obj_player.x >= x - 40) {
     // Fala do Rizzi
     var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
     _caixa.falas = [
-        { nome: "Rizzi", texto: "Olha só... o Batman resolveu aparecer!", maquina: true, tempo: 3 }
+        { nome: "Professor", texto: "Olha só... o Batman resolveu aparecer!", maquina: true, tempo: 3 }
     ];
     
     etapa = 1;
@@ -94,7 +94,7 @@ if (fade_tipo == 2) {
         alpha_preto = 0;
         fade_tipo = 0;
         
-        // Para o áudio 'escrevendo' assim que a tela clareia totalmente e volta ao normal
+        // Para o áudio 'escrevendo' assim que a tela clareia totalmente
         if (audio_exists(escrevendo) && audio_is_playing(escrevendo)) {
             audio_stop_sound(escrevendo);
         }
@@ -107,31 +107,49 @@ if (fade_tipo == 2) {
             instance_create_depth(limite_x - 32, _yy, depth, obj_colisao);
         }
         
-        // LIBERA O PLAYER IMEDIATAMENTE PARA ANDAR
-        obj_player.estado = obj_player.p_idle;
+        // MANTÉM O PLAYER PARADO para as duas primeiras frases
+        obj_player.estado = obj_player.p_cutscene;
+        obj_player.velh = 0;
+        obj_player.velv = 0;
+        obj_player.sprite_index = spr_player_idle;
+        
+        // Diálogo do Tini reclamando da prova (com o player parado)
+        var _caixa_reclama = instance_create_depth(0, 0, -9999, obj_textbox);
+        _caixa_reclama.falas = [
+            { nome: "Tini", texto: "Mas que prova foi essa...", maquina: true, tempo: 2 },
+            { nome: "Tini", texto: "Vou trancar essa caramba", maquina: true, tempo: 2 }
+        ];
         
         etapa = 5;
     }
 }
 
-// 6. Espera 2 segundos enquanto o player JÁ PODE ANDAR LIVREMENTE
+// 6. Espera as duas primeiras frases terminarem e LIBERA O PLAYER PARA ANDAR
 if (etapa == 5) {
-    timer_pos_fade++;
-    
-    if (timer_pos_fade >= 120) {
-        // Diálogo do Tini reclamando da prova (sem travar o player)
-        var _caixa_reclama = instance_create_depth(0, 0, -9999, obj_textbox);
-        _caixa_reclama.falas = [
-            { nome: "Tini", texto: "Mas que prova foi essa...", maquina: true, tempo: 2.5 },
-            { nome: "Tini", texto: "Vou trancar essa caramba", maquina: true, tempo: 2.5 }
-        ];
-        
+    if (!instance_exists(obj_textbox)) {
+        // Libera o player para andar livremente
+        obj_player.estado = obj_player.p_idle;
+        timer_pos_fade = 0;
         etapa = 6;
     }
 }
 
-// 7. Quando o diálogo de reclamação terminar, destrói o gatilho (manteve o player livre todo o tempo)
+// 7. Espera 1 segundo enquanto o player JÁ PODE ANDAR e exibe a frase "Hora de ir para casa primeiro"
 if (etapa == 6) {
+    timer_pos_fade++;
+    
+    if (timer_pos_fade >= 60) { // 1 segundo
+        var _caixa_casa = instance_create_depth(0, 0, -9999, obj_textbox);
+        _caixa_casa.falas = [
+            { nome: "Tini", texto: "Hora de ir para casa primeiro", maquina: true, tempo: 2 }
+        ];
+        
+        etapa = 7;
+    }
+}
+
+// 8. Quando o diálogo "Hora de ir para casa primeiro" terminar, destrói o gatilho
+if (etapa == 7) {
     if (!instance_exists(obj_textbox)) {
         if (audio_exists(escrevendo) && audio_is_playing(escrevendo)) {
             audio_stop_sound(escrevendo);

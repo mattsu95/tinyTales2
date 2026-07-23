@@ -186,7 +186,7 @@ if (mostrar_inventario)
             // Sprite do item
             draw_set_color(c_white);
 
-			if (inventario[i]) {
+			if (inventario[i] != noone && is_struct(inventario[i])) {
 	            draw_sprite(
 	                inventario[i].sprite,
 	                0,
