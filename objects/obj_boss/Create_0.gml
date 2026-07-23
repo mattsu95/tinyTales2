@@ -15,7 +15,7 @@ sprite_index = spr_enemy_idle;
 // é um boss né
 area_visao = 20000;
 area_perseguicao = 35000;
-vida_max *= 3;
+vida_max *= 5;
 vida = vida_max;
 vel_movimento_max = 1.5 * vel_movimento;
 vel_ataque_max = 1.5 * vel_ataque;
@@ -33,7 +33,7 @@ sprite_pulo = spr_enemy_idle;
 projectile = obj_projectile;
 
 // tempo em segundos pra cada troca
-roll_timer_max = game_get_speed(gamespeed_fps) * 20;
+roll_timer_max = game_get_speed(gamespeed_fps) * 10;
 roll_timer = roll_timer_max;
 
 // timer de 1 segundo pra troca de move_set
@@ -75,7 +75,7 @@ set_move_set = function(_mv) {
 	        break;
 
 	    case mvSet_parry:
-			roll_timer_max = game_get_speed(gamespeed_fps) * 10;
+			roll_timer_max = game_get_speed(gamespeed_fps) * 8;
 			vel_movimento = vel_movimento_max;
 			tempo_recovery = tempo_recovery_max;
 			cooldown_ataque_principal = cooldown_ataque_principal_max;
@@ -83,15 +83,15 @@ set_move_set = function(_mv) {
 	        break;
 			
 		case mvSet_darksouls:
-			roll_timer_max = game_get_speed(gamespeed_fps) * 20;
+			roll_timer_max = game_get_speed(gamespeed_fps) * 10;
 			vel_movimento = vel_movimento_max;
 			tempo_recovery = tempo_recovery_max;
 			cooldown_ataque_principal = cooldown_ataque_principal_max;
-			actions = irandom(3) + 1;
+			actions = irandom(3) + 3;
 			estado  = e_rage;
 			break;
 		case mvSet_berserker:
-			roll_timer_max = game_get_speed(gamespeed_fps) * 30;
+			roll_timer_max = game_get_speed(gamespeed_fps) * 20;
 			vel_movimento *= 1.75;
 			tempo_recovery *= 0.25;
 			cooldown_ataque_principal *= 0.5;
@@ -146,6 +146,7 @@ mvSet_range = function() {
 mvSet_parry = function() {
 	dado.image_index = 2;
 	
+	distancia_alvo	= 300 + irandom(50);
 	estado();
 	
 	if (roll_timer <= 0 && !in_combo) {
@@ -158,6 +159,9 @@ mvSet_parry = function() {
 mvSet_darksouls = function() {
 	dado.image_index = 3;
 	
+	distancia_alvo	= 80 + irandom(30);
+	estado_ofensivo = e_approach;
+	estado_ataque   = e_attack;
 	estado();
 	
 	if (roll_timer <= 0 && !in_combo) {
@@ -170,6 +174,7 @@ mvSet_darksouls = function() {
 mvSet_berserker = function() {
 	dado.image_index = 4;
 	
+	distancia_alvo	= 40 + irandom(30);
 	estado();
 	
 	if (roll_timer <= 0 && !in_combo) {
@@ -191,4 +196,4 @@ mvSet_cake = function() {
 
 // move set atual
 mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_berserker, mvSet_cake];
-set_move_set(mvSet[4]);
+set_move_set(mvSet[3]);

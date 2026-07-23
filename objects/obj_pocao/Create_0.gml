@@ -22,7 +22,7 @@ init = function() {
 			cor_particula = c_fuchsia;
 			break;
 		case "dano":
-			sprite_index = spr_pocao; // teste => mudar dps
+			sprite_index = spr_pocao_dano;
 			cor_particula = c_black;
 			break;
 	}
@@ -36,6 +36,7 @@ show_potion = function() {
 	if (z < 0) {
 		velz += grav;
 	} else {
+		audio_play_sound(bottle_crashing, 1, false);
 		apply = true;
 	}
 }
