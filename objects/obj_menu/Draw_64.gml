@@ -29,16 +29,23 @@ for (var i = 0; i < menu_len; i++) {
 		
 		if (device_mouse_check_button_pressed(0, mb_left)) {
 			switch (menu_opt[i]) {
-				case menu_opt[0]: // jogar
+				case menu_opt[0]: // continuar
+					if (variable_global_exists("checkpoint_room")) {
+						room_goto(global.checkpoint_room);
+					} else {
+						room_goto(Floresta);
+					}
+					break;
+				case menu_opt[1]: // jogar
 					room_goto(Floresta);
 					break;
-				case menu_opt[1]: // opções
+				case menu_opt[2]: // opções
 					show_message("você é bagre!");
 					break;
-				case menu_opt[2]: // créditos
+				case menu_opt[3]: // créditos
 					show_message("Grupo do Bolo™");
 					break;
-				case menu_opt[3]: // sair
+				case menu_opt[4]: // sair
 					game_end();
 					break;
 			}
