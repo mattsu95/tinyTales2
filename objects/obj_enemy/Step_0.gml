@@ -1,8 +1,6 @@
-if (!variable_instance_exists(id, "estado")) {
-    show_message("estado NÃO existe!");
+if (estado != noone && !is_undefined(estado)) {
+	estado();
 }
-var _estado = estado;
-_estado();
 
 // só usa velh para virar quando não há alvo definido
 if (alvo == noone && velh != 0) {
