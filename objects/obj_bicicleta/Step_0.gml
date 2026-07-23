@@ -1,4 +1,16 @@
 if (instance_exists(obj_player)) {
+    // BARREIRA: Impede fisicamente o player de avançar a pé além da bicicleta
+    if (!obj_player.ta_de_bike && obj_player.x >= x + 45) {
+        obj_player.x = x + 45;
+        if (obj_player.velh > 0) obj_player.velh = 0;
+        
+        if (!instance_exists(obj_textbox) && !texto_criado) {
+            var _caixa_barreira = instance_create_layer(0, 0, "Instances_1", obj_textbox);
+            _caixa_barreira.falas = [{ texto: "Você precisa pegar a bicicleta para continuar!", maquina: false, tempo: 3 }];
+            texto_criado = true;
+        }
+    }
+
     var _dist = point_distance(x, y, obj_player.x, obj_player.y);
 
     if (_dist <= distancia_interacao) {

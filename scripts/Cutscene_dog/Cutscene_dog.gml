@@ -68,6 +68,7 @@ function cutscene_move_player_to_pos(_target_x, _target_y, _spd) {
     if (abs(obj_player.x - _target_x) <= _spd and abs(obj_player.y - _target_y) <= _spd) {
         obj_player.x = _target_x;
         obj_player.y = _target_y;
+        obj_player.sprite_index = spr_player_idle;
         action_end();
     }
 }
@@ -267,6 +268,12 @@ function cutscene_spawn_and_move_enemy(_distancia_para_entrar, _spd) {
 
 
 function cutscene_dialogueDog(_array_de_falas) {
+    if (instance_exists(obj_player)) {
+        obj_player.sprite_index = spr_player_idle;
+        obj_player.velh = 0;
+        obj_player.velv = 0;
+    }
+    
     // Usamos o 'timer' do próprio objeto da cutscene como uma variável de controle temporária.
     // Se o timer for 0, significa que é o primeiríssimo frame que essa ação está rodando!
     if (timer == 0) {
@@ -406,5 +413,104 @@ function cutscene_spawn_and_move_dogs_right(_quantidade, _distancia_para_entrar,
     if (_todos_chegaram && timer > 5) {
         timer = 0;
         action_end();
+    }
+}
+
+// Função para os 3 cachorros da frente fugirem em diagonal para baixo quando o player fala "Eu te salvo dessa!"
+function cutscene_dogs_right_run_away(_spd_x, _spd_y) {
+    var _cam = view_camera[0];
+    var _cam_y = camera_get_view_y(_cam);
+    var _cam_h = camera_get_view_height(_cam);
+    
+    var _restantes = 0;
+    
+    with (obj_dog) {
+        if (variable_instance_exists(id, "cachorro_da_frente") && cachorro_da_frente) {
+            _restantes++;
+            image_xscale = 1; // Vira para a direita/frente para fugir
+            x += _spd_x;
+            y += _spd_y;
+            
+            // Quando sair bem para fora da tela (embaixo), destrói
+            if (y > _cam_y + _cam_h + 40) {
+                instance_destroy();
+            }
+        }
+    }
+    
+    // Quando todos os cachorros da frente já tiverem fugido e saído de cena
+    if (_restantes == 0) {
+        timer = 0;
+        action_end();
+    }
+}
+
+// Função para resetar a cena e retornar o jogador para o checkpoint se for pego por um cachorro
+function respawn_player_checkpoint() {
+    // 1. Para todos os sons de cutscene
+    if (audio_is_playing(Bad_Piggies_Theme)) audio_stop_sound(Bad_Piggies_Theme);
+    if (audio_is_playing(CachorroLatindo)) audio_stop_sound(CachorroLatindo);
+    if (audio_is_playing(city_sounds)) audio_stop_sound(city_sounds);
+    if (audio_is_playing(thunder)) audio_stop_sound(thunder);
+
+    // 2. Destrói controladores de cutscene e entidades temporárias
+    if (instance_exists(obj_cutscene_dog)) instance_destroy(obj_cutscene_dog);
+    if (instance_exists(obj_dog)) instance_destroy(obj_dog);
+    if (instance_exists(obj_obstaculo)) instance_destroy(obj_obstaculo);
+    if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
+    if (instance_exists(obj_cutscene_enemy)) instance_destroy(obj_cutscene_enemy);
+
+    // 3. Teleporta o player para o checkpoint da room
+    if (instance_exists(obj_player)) {
+        var _target_x = variable_global_exists("checkpoint_x") ? global.checkpoint_x : 64;
+        var _target_y = variable_global_exists("checkpoint_y") ? global.checkpoint_y : 192;
+        
+        obj_player.x = _target_x;
+        obj_player.y = _target_y;
+        obj_player.estado = obj_player.p_idle;
+        obj_player.atordoado = false;
+        obj_player.perda_velocidade = 0;
+        obj_player.image_blend = c_white;
+        obj_player.image_alpha = 1.0;
+        obj_player.velh = 0;
+        obj_player.velv = 0;
+    }
+
+    // 4. Recria o gatilho da cutscene caso ele não exista
+    if (!instance_exists(obj_gatilho_cachorros)) {
+        var _gatilho = instance_create_layer(504, -60, "Instances_1", obj_gatilho_cachorros);
+        _gatilho.image_yscale = 17.25;
+    }
+}
+
+// Função para disparar a tela de morte por cachorros (tela preta + som monster + frase)
+function trigger_dog_death() {
+    if (instance_exists(obj_player) && !obj_player.pego_pelos_dogs) {
+        obj_player.pego_pelos_dogs = true;
+        obj_player.timer_morte_dogs = 240; // 4s a 60fps
+        
+        // 1. Para todos os sons de cutscene
+        if (audio_is_playing(Bad_Piggies_Theme)) audio_stop_sound(Bad_Piggies_Theme);
+        if (audio_is_playing(CachorroLatindo)) audio_stop_sound(CachorroLatindo);
+        if (audio_is_playing(city_sounds)) audio_stop_sound(city_sounds);
+        if (audio_is_playing(thunder)) audio_stop_sound(thunder);
+
+        // 2. Toca o som monster!
+        if (audio_exists(monster)) {
+            audio_play_sound(monster, 1, false);
+        }
+
+        // 3. Destrói controladores de cutscene e entidades temporárias
+        if (instance_exists(obj_cutscene_dog)) instance_destroy(obj_cutscene_dog);
+        if (instance_exists(obj_dog)) instance_destroy(obj_dog);
+        if (instance_exists(obj_obstaculo)) instance_destroy(obj_obstaculo);
+        if (instance_exists(obj_textbox)) instance_destroy(obj_textbox);
+        if (instance_exists(obj_cutscene_enemy)) instance_destroy(obj_cutscene_enemy);
+
+        // 4. Trava o player no estado de cutscene parado
+        obj_player.estado = obj_player.p_cutscene;
+        obj_player.velh = 0;
+        obj_player.velv = 0;
+        obj_player.sprite_index = spr_player_idle;
     }
 }

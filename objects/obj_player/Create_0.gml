@@ -1,5 +1,15 @@
 randomize();
 
+// --- SISTEMA DE CHECKPOINT DA ROOM ---
+if (!variable_global_exists("checkpoint_room") || global.checkpoint_room != room) {
+    global.checkpoint_room = room;
+    global.checkpoint_x    = x;
+    global.checkpoint_y    = y;
+}
+
+pego_pelos_dogs  = false;
+timer_morte_dogs = 0;
+
 image_speed = 0.7; // velocidade das animações (1 = padrão, menor = mais devagar)
 
 // --- VIDA DO PLAYER ---
