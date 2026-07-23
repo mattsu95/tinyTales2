@@ -323,8 +323,9 @@ e_shoot = function() {
 		var projetil = instance_create_layer(x + 5 * image_xscale, y - 10, "Instances", projectile);
 		
 		// IMPLEMENTAR!!!!!!!
-		//projetil.velh = image_xscale * 5;
-		//projetil.shoot();
+		projetil.dir = -sign(image_xscale);
+		projetil.velh = 5;
+		projetil.owner = id;
 	}
 	
 	if (image_index > image_number - 1) {

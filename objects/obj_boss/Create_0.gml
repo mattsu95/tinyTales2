@@ -197,4 +197,4 @@ mvSet_cake = function() {
 
 // move set atual
 mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_berserker, mvSet_cake];
-set_move_set(mvSet[3]);
+set_move_set(mvSet[1]);
