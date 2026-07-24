@@ -29,12 +29,13 @@ dano_flash_timer = 0;
 dano_flash_max = 8; // frames que a barra fica vermelha/vibrando
 
 defendendo = false; // true enquanto F estiver pressionado
+defendendo_prev = false;
 parry_window     = 0;  // frames restantes de janela de parry
 parry_window_max = 15; // ~0.25s a 60fps — janela ativa logo ao pressionar F
 parry_stun_max   = game_get_speed(gamespeed_fps) * 1.5; // stun causado no inimigo pelo parry
 
 timer_stun = 0;
-parry_flash_timer = 20;
+parry_flash_timer = 0;
 
 // --- VARIÁVEIS DE MOVIMENTO E FÍSICA ---
 velh = 0;
@@ -125,17 +126,65 @@ vel_max_bike = 8;         // A velocidade máxima que ela atinge
 aceleracao_bike = 0.2;    // O quão rápido ela embala
 friccao_bike = 0.3;       // O quão rápido ela freia quando você solta o botão
 
+// --- GAMEPAD (DualSense/PS5 e outros) ---
+gp_device = -1;
+gp_deadzone = 0.35;
+
+refresh_gamepad_device = function() {
+	if (gp_device >= 0 && gamepad_is_connected(gp_device)) {
+		return;
+	}
+
+	gp_device = -1;
+	for (var _i = 0; _i < 4; _i++) {
+		if (gamepad_is_connected(_i)) {
+			gp_device = _i;
+			break;
+		}
+	}
+}
+
+gp_connected = function() {
+	refresh_gamepad_device();
+	return gp_device >= 0;
+}
+
+gp_check = function(_button) {
+	if (!gp_connected()) return false;
+	return gamepad_button_check(gp_device, _button);
+}
+
+gp_pressed = function(_button) {
+	if (!gp_connected()) return false;
+	return gamepad_button_check_pressed(gp_device, _button);
+}
+
+gp_axis = function(_axis) {
+	if (!gp_connected()) return 0;
+	var _value = gamepad_axis_value(gp_device, _axis);
+	if (abs(_value) < gp_deadzone) return 0;
+	return _value;
+}
+
 // --- FUNÇÕES DE CONTROLE ---
 
 // Função de controle padrão (Movimentação livre 8 direções)
 control_player = function() {
-	up			= keyboard_check(ord("W"));
-	left		= keyboard_check(ord("A"));
-	down		= keyboard_check(ord("S"));
-	right		= keyboard_check(ord("D"));
+	var _axis_h = gp_axis(gp_axislh);
+	var _axis_v = gp_axis(gp_axislv);
+
+	up			= keyboard_check(ord("W")) || gp_check(gp_padu) || (_axis_v < -0.5);
+	left		= keyboard_check(ord("A")) || gp_check(gp_padl) || (_axis_h < -0.5);
+	down		= keyboard_check(ord("S")) || gp_check(gp_padd) || (_axis_v > 0.5);
+	right		= keyboard_check(ord("D")) || gp_check(gp_padr) || (_axis_h > 0.5);
 	jump		= false; // Pulo desativado
-	attack		= mouse_check_button_pressed(mb_left);
-	roll_dice	= mouse_check_button(mb_right);
+	attack		= mouse_check_button_pressed(mb_left) || gp_pressed(gp_face1);
+	roll_dice	= mouse_check_button(mb_right) || gp_check(gp_shoulderr);
+
+	var _left_pressed = keyboard_check_pressed(ord("A")) || gp_pressed(gp_padl);
+	var _right_pressed = keyboard_check_pressed(ord("D")) || gp_pressed(gp_padr);
+	var _up_pressed = keyboard_check_pressed(ord("W")) || gp_pressed(gp_padu);
+	var _down_pressed = keyboard_check_pressed(ord("S")) || gp_pressed(gp_padd);
 	
 
 	if (tap_left_timer  > 0) tap_left_timer--;
@@ -143,7 +192,7 @@ control_player = function() {
 	if (tap_up_timer    > 0) tap_up_timer--;
 	if (tap_down_timer  > 0) tap_down_timer--;
 
-	if (keyboard_check_pressed(ord("A"))) {
+	if (_left_pressed) {
 		if (tap_left_timer > 0) {
 			is_running = true;
 			run_dir = 1;
@@ -151,7 +200,7 @@ control_player = function() {
 		tap_left_timer = tap_window;
 	}
 
-	if (keyboard_check_pressed(ord("D"))) {
+	if (_right_pressed) {
 		if (tap_right_timer > 0) {
 			is_running = true;
 			run_dir = 2;
@@ -159,7 +208,7 @@ control_player = function() {
 		tap_right_timer = tap_window;
 	}
 
-	if (keyboard_check_pressed(ord("W"))) {
+	if (_up_pressed) {
 		if (tap_up_timer > 0) {
 			is_running = true;
 			run_dir = 3;
@@ -167,7 +216,7 @@ control_player = function() {
 		tap_up_timer = tap_window;
 	}
 
-	if (keyboard_check_pressed(ord("S"))) {
+	if (_down_pressed) {
 		if (tap_down_timer > 0) {
 			is_running = true;
 			run_dir = 4;
@@ -198,8 +247,10 @@ control_player = function() {
 
 // Função de controle exclusiva para o modo de fuga (Corrida infinita)
 control_fuga = function() {
-    up   = keyboard_check(ord("W"));
-    down = keyboard_check(ord("S"));
+	var _axis_v = gp_axis(gp_axislv);
+
+	up   = keyboard_check(ord("W")) || gp_check(gp_padu) || (_axis_v < -0.5);
+	down = keyboard_check(ord("S")) || gp_check(gp_padd) || (_axis_v > 0.5);
     jump = false; // Pulo desativado
 
 	var _vel_atual = vel_fuga - perda_velocidade;
@@ -232,7 +283,6 @@ p_idle = function() {
 
 p_walk = function() {
 	sprite_index = spr_player_walk;
-	parry_flash_timer = 20;
 	
 	if (defendendo) { estado = p_defend; return; }
 
@@ -299,7 +349,7 @@ p_attack = function() {
 	}
 	
 	
-	if (mouse_check_button_pressed(mb_left)) { 
+	if (mouse_check_button_pressed(mb_left) || gp_pressed(gp_face1)) { 
 		buffer_attack = true; 
 	}
 	
@@ -368,15 +418,18 @@ p_bike = function() {
     image_xscale = sign(image_xscale);
 
     // --- 1. CAMPAINHA ---
-    if (keyboard_check_pressed(ord("E"))) {
+	if (keyboard_check_pressed(ord("E")) || gp_pressed(gp_face1)) {
         audio_play_sound(bell, 1, false);
     }
 
     // --- 2. INPUTS DE MOVIMENTO ---
-    var _right = keyboard_check(ord("D"));
-    var _left  = keyboard_check(ord("A"));
-    var _up    = keyboard_check(ord("W"));
-    var _down  = keyboard_check(ord("S"));
+	var _axis_h = gp_axis(gp_axislh);
+	var _axis_v = gp_axis(gp_axislv);
+
+	var _right = keyboard_check(ord("D")) || gp_check(gp_padr) || (_axis_h > 0.5);
+	var _left  = keyboard_check(ord("A")) || gp_check(gp_padl) || (_axis_h < -0.5);
+	var _up    = keyboard_check(ord("W")) || gp_check(gp_padu) || (_axis_v < -0.5);
+	var _down  = keyboard_check(ord("S")) || gp_check(gp_padd) || (_axis_v > 0.5);
     
     var _input_x = _right - _left;
 

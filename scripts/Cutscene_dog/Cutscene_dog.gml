@@ -251,14 +251,16 @@ function cutscene_spawn_and_move_enemy(_distancia_para_entrar, _spd) {
     
     // 2. Move o inimigo para a esquerda (entrando na tela devagar)
     with(obj_cutscene_enemy) {
-        sprite_index = spr_enemy_idle; 
+        sprite_index = spr_varas_walk; 
+        image_xscale = -1; // Inverte horizontalmente o sprite pelo codigo
         x -= _spd; // Move para a esquerda
         
         // Ponto de parada: quando ele andar o suficiente para dentro do campo de visão
         var _ponto_parada = (_cam_x + _cam_w) - _distancia_para_entrar;
         if (x <= _ponto_parada) {
             x = _ponto_parada;
-            sprite_index = spr_enemy_idle; // Fica parado encarando o player
+            sprite_index = spr_varas_idle; // Fica parado encarando o player
+            image_xscale = -1;
             
             // Fim da ação!
             with(other) { action_end(); } 
