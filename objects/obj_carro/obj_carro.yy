@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Building1",
-    "path":"sprites/Building1/Building1.yy",
+    "name":"byd",
+    "path":"sprites/byd/byd.yy",
   },
   "spriteMaskId":null,
   "visible":true,

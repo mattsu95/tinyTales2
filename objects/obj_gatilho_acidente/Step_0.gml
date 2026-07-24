@@ -20,8 +20,8 @@ if (!ativado) {
         var _cam_x = camera_get_view_x(view_camera[0]);
         var _cam_w = camera_get_view_width(view_camera[0]);
         
-        // Cria o carro um pouco fora da câmera pela direita, na mesma altura Y do player
-        instance_create_layer(_cam_x + _cam_w + 100, obj_player.y, "Instances_1", obj_carro);
+        // Cria o carro um pouco fora da câmera pela direita, alinhando a altura com o player
+        instance_create_layer(_cam_x + _cam_w + 100, obj_player.y - 38, "Instances_1", obj_carro);
     }
 } 
 else {

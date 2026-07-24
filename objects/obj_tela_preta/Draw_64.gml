@@ -36,7 +36,7 @@ draw_circle(_cx, _cy - 10, 80 + sin(timer * 0.1) * 10, false);
 draw_set_alpha(1.0);
 draw_set_color(c_white);
 
-var _sprite_arma = tinicleta;
+var _sprite_arma = muleta;
 if (sprite_exists(_sprite_arma)) {
     var _sw = sprite_get_width(_sprite_arma);
     var _sh = sprite_get_height(_sprite_arma);

@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"tinicleta",
-    "path":"sprites/tinicleta/tinicleta.yy",
+    "name":"bici",
+    "path":"sprites/bici/bici.yy",
   },
   "spriteMaskId":null,
   "visible":true,
