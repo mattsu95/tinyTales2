@@ -96,6 +96,7 @@
     {"id":{"name":"obj_textbox","path":"objects/obj_textbox/obj_textbox.yy",},},
     {"id":{"name":"obj_tiniMenu","path":"objects/obj_tiniMenu/obj_tiniMenu.yy",},},
     {"id":{"name":"obj_transicao_floresta","path":"objects/obj_transicao_floresta/obj_transicao_floresta.yy",},},
+    {"id":{"name":"obj_transicao_unioeste","path":"objects/obj_transicao_unioeste/obj_transicao_unioeste.yy",},},
     {"id":{"name":"obj_vinicius","path":"objects/obj_vinicius/obj_vinicius.yy",},},
     {"id":{"name":"corbelia","path":"rooms/corbelia/corbelia.yy",},},
     {"id":{"name":"Floresta","path":"rooms/Floresta/Floresta.yy",},},

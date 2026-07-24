@@ -101,6 +101,13 @@ if (dice_cooldown > 0) { dice_cooldown--; }
 
 estado();
 
+// Para o som da bicicleta se o player não estiver pedalando
+if (estado != p_bike || !ta_de_bike) {
+    if (audio_is_playing(bicycle)) {
+        audio_stop_sound(bicycle);
+    }
+}
+
 if (keyboard_check_pressed(vk_tab))
 {
     mostrar_inventario = !mostrar_inventario;

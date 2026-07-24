@@ -322,11 +322,10 @@ p_jump = function() {
 
 p_bike = function() {
    
-    sprite_index = tinicleta; 
+    sprite_index = bici; 
 	
-	image_yscale = 0.1;
-    // Pega a direção que o Step definiu (1 ou -1) e transforma em 0.1 ou -0.1
-    image_xscale = sign(image_xscale) * 0.1;
+    image_yscale = 1;
+    image_xscale = sign(image_xscale);
 
     // --- 1. CAMPAINHA ---
     if (keyboard_check_pressed(ord("E"))) {
