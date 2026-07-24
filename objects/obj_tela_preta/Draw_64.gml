@@ -76,4 +76,3 @@ draw_set_font(-1);
 draw_set_alpha(1.0);
 
 global.muleta = true;
-show_message(global.muleta);

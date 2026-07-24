@@ -1,4 +1,10 @@
 if (instance_exists(obj_player)) {
+    var _apertou_confirmar = keyboard_check_pressed(ord("E"));
+    for (var _gp = 0; _gp < 4 && !_apertou_confirmar; _gp++) {
+        if (gamepad_is_connected(_gp) && gamepad_button_check_pressed(_gp, gp_face1)) {
+            _apertou_confirmar = true;
+        }
+    }
     
     // 1. INICIA A LIGAÇÃO
     if (!ativado && obj_player.x >= x) {
@@ -11,7 +17,7 @@ if (instance_exists(obj_player)) {
         timer_celular++;
         
         // --- CONDIÇÃO PARA ATENDER ---
-        var _apertou_e = keyboard_check_pressed(ord("E"));
+        var _apertou_e = _apertou_confirmar;
         var _estourou_tempo = (timer_celular >= tempo_limite);
         
         if (_apertou_e || _estourou_tempo) {

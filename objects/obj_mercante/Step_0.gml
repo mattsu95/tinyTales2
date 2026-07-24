@@ -1,12 +1,19 @@
 if (!instance_exists(obj_player)) exit;
 
+var _apertou_confirmar = keyboard_check_pressed(ord("E"));
+for (var _gp = 0; _gp < 4 && !_apertou_confirmar; _gp++) {
+    if (gamepad_is_connected(_gp) && gamepad_button_check_pressed(_gp, gp_face1)) {
+        _apertou_confirmar = true;
+    }
+}
+
 var _dist = point_distance(x, y, obj_player.x, obj_player.y);
 
 // Checa proximidade com o jogador (Permite interagir APENAS UMA VEZ)
 if (_dist <= 160 && !falando && !dialogo_concluido) {
     pode_falar = true;
     
-    if (keyboard_check_pressed(ord("E"))) {
+    if (_apertou_confirmar) {
         pode_falar = false;
         falando = true;
         

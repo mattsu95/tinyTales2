@@ -3,12 +3,17 @@ if (dano_flash_timer > 0) {
     dano_flash_timer--;
 }
 
+var _restart_pressed = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space) || gp_pressed(gp_face1) || gp_pressed(gp_start);
+var _inv_toggle_pressed = keyboard_check_pressed(vk_tab) || gp_pressed(gp_select);
+var _inv_right_pressed = keyboard_check_pressed(vk_right) || gp_pressed(gp_padr);
+var _inv_left_pressed = keyboard_check_pressed(vk_left) || gp_pressed(gp_padl);
+
 // --- GAME OVER ---
 if (game_over) {
     velh = 0;
     velv = 0;
     sprite_index = spr_player_idle;
-    if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
+    if (_restart_pressed) {
         game_restart();
     }
     exit;
@@ -21,7 +26,7 @@ if (pego_pelos_dogs) {
     sprite_index = spr_player_idle;
     timer_morte_dogs--;
     
-    if (timer_morte_dogs <= 0 || ((240 - timer_morte_dogs > 30) && (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)))) {
+    if (timer_morte_dogs <= 0 || ((240 - timer_morte_dogs > 30) && _restart_pressed)) {
         pego_pelos_dogs = false;
         respawn_player_checkpoint();
     }
@@ -29,12 +34,14 @@ if (pego_pelos_dogs) {
 }
 
 // --- DEFESA ---
-defendendo = keyboard_check(ord("C"));
+var _defend_now = keyboard_check(ord("C")) || gp_check(gp_face2);
 
 // parry: ativa janela no primeiro frame de pressionar F
-if (keyboard_check_pressed(ord("C"))) {
+if (_defend_now && !defendendo_prev) {
     parry_window = parry_window_max;
 }
+defendendo = _defend_now;
+defendendo_prev = _defend_now;
 if (parry_window > 0) parry_window--;
 
 if (defendendo) {
@@ -108,19 +115,19 @@ if (estado != p_bike || !ta_de_bike) {
     }
 }
 
-if (keyboard_check_pressed(vk_tab))
+if (_inv_toggle_pressed)
 {
     mostrar_inventario = !mostrar_inventario;
 }
 
 if (mostrar_inventario && array_length(inventario) > 0)
 {
-    if (keyboard_check_pressed(vk_right))
+    if (_inv_right_pressed)
     {
         indice_selecionado++;
     }
 
-    if (keyboard_check_pressed(vk_left))
+    if (_inv_left_pressed)
     {
         indice_selecionado--;
     }
@@ -151,16 +158,10 @@ if (room == Unioeste1 && !ta_de_bike && instance_exists(obj_bicicleta) && x >= 5
     if (velh > 0) velh = 0;
 }
 
-
-// Flash de parry
-else if (parry_flash_timer > 0) {
+// Flash amarelo no parry bem-sucedido
+if (parry_flash_timer > 0) {
     parry_flash_timer--;
-    if (parry_flash_timer mod 4 < 2) image_blend = merge_colour(c_white, c_red, 0.7);
-    else image_blend = c_white;
-}
-
-else {
-
+    image_blend = make_colour_rgb(255, 220, 50);
+} else if (!defendendo && invincivel_timer <= 0 && !atordoado) {
     image_blend = c_white;
-
 }
