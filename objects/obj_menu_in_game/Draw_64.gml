@@ -37,12 +37,13 @@ if (desenhar) {
     draw_set_color(c_white);
 	var menu_len = array_length(menu_opt);
 	for (var i = 0; i < menu_len; i++) {
+		draw_set_color(c_white);
 		
 		var espacamento = 28;
 		var tx = cx;
 		var ty = cy - ((menu_len - 1) * espacamento) / 2 + i * espacamento;
 
-		var s = 0.5 * escala[i];
+		var s = 0.35 * escala[i];
 
 		var _wstr = string_width(menu_opt[i]) * s;
 		var _hstr = string_height("I") * s;
@@ -51,9 +52,14 @@ if (desenhar) {
 		var y1 = ty - _hstr / 2;
 		var x2 = tx + _wstr / 2;
 		var y2 = ty + _hstr / 2;
+		
+		var texto = menu_opt[i];
+		if (menu_opt[i] == "Volume") {
+			texto = "Volume: " + string(round(global.volume * 100)) + "%";
+		}
 
 	
-		if (point_in_rectangle(_mx, _my, x1, y1, x2, y2)) {
+		if (point_in_rectangle(_mx, _my, x1, y1, x2, y2) && menu_opt[i] != "Volume") {
 			escala[i] = lerp(escala[i], 1.4, 0.15);
 		
 			if (device_mouse_check_button_pressed(0, mb_left)) {
@@ -75,7 +81,62 @@ if (desenhar) {
 			escala[i] = lerp(escala[i], 1, 0.15);
 		}
 	
-		draw_text_transformed(tx, ty, menu_opt[i], s, s, 0);
+		draw_text_transformed(tx, ty, texto, s, s, 0);
+		
+		if (menu_opt[i] == "Volume") {
+
+
+	    // Barra
+	    var barra_w = 120;
+	    var barra_h = 4;
+
+	    // Posição da barra (centralizada e abaixo do texto)
+	    var barra_x = tx - barra_w / 2;
+	    var barra_y = ty + (_hstr * s) / 2 + 8;
+
+	    // Fundo
+	    draw_set_color(c_dkgray);
+	    draw_rectangle(
+	        barra_x,
+	        barra_y,
+	        barra_x + barra_w,
+	        barra_y + barra_h,
+	        false
+	    );
+
+	    // Parte preenchida
+	    draw_set_color(c_white);
+	    draw_rectangle(
+	        barra_x,
+	        barra_y,
+	        barra_x + barra_w * global.volume,
+	        barra_y + barra_h,
+	        false
+	    );
+
+	    // Bolinha
+	    draw_set_color(c_yellow);
+	    draw_circle(
+	        barra_x + barra_w * global.volume,
+	        barra_y + barra_h / 2,
+	        5,
+	        false
+	    );
+
+	    // Arrastar com o mouse
+	    if (point_in_rectangle(
+	        _mx, _my,
+	        barra_x, barra_y,
+	        barra_x + barra_w,
+	        barra_y + barra_h))
+	    {
+	        if (device_mouse_check_button(0, mb_left))
+	        {
+	            global.volume = clamp((_mx - barra_x) / barra_w, 0, 1);
+	            audio_master_gain(global.volume);
+	        }
+	    }
+	}
 	}
 
 

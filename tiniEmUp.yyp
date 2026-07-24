@@ -249,10 +249,10 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"Floresta","path":"rooms/Floresta/Floresta.yy",},},
-    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
-    {"roomId":{"name":"Intro","path":"rooms/Intro/Intro.yy",},},
     {"roomId":{"name":"Menu","path":"rooms/Menu/Menu.yy",},},
+    {"roomId":{"name":"Intro","path":"rooms/Intro/Intro.yy",},},
+    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"roomId":{"name":"Floresta","path":"rooms/Floresta/Floresta.yy",},},
     {"roomId":{"name":"Unioeste1","path":"rooms/Unioeste1/Unioeste1.yy",},},
     {"roomId":{"name":"Terminal","path":"rooms/Terminal/Terminal.yy",},},
     {"roomId":{"name":"corbelia","path":"rooms/corbelia/corbelia.yy",},},
