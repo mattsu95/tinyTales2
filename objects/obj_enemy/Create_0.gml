@@ -59,6 +59,7 @@ sprite_punch = spr_enemy_punch;
 sprite_shoot = spr_enemy_punch;
 sprite_taunt = spr_enemy_idle;
 sprite_pulo = spr_enemy_idle;
+sprite_morte = noone;
 
 projectile = obj_projectile;
 
@@ -663,6 +664,15 @@ e_flank = function() {
 	        }
 		}
     }
+}
+
+estado_morte = function() {
+	set_sprite(sprite_morte);
+	
+	if (image_index >= image_number - 1) {
+		instance_destroy();
+		exit;
+	}
 }
 
 estado = e_search;
