@@ -52,10 +52,7 @@ for (var i = 0; i < menu_len; i++) {
 					break;
 				case menu_opt[2]: // opções
 					break;
-				case menu_opt[3]: // créditos
-					show_message("Grupo do Bolo™");
-					break;
-				case menu_opt[4]: // sair
+				case menu_opt[3]: // sair
 					game_end();
 					break;
 			}
