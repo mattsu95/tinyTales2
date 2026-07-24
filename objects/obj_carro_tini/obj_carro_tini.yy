@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Beige_Vending_Machine",
-    "path":"sprites/Beige_Vending_Machine/Beige_Vending_Machine.yy",
+    "name":"uno",
+    "path":"sprites/uno/uno.yy",
   },
   "spriteMaskId":null,
   "visible":true,

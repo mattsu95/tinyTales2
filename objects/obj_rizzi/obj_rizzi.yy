@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Tree3",
-    "path":"sprites/Tree3/Tree3.yy",
+    "name":"spr_rizzi",
+    "path":"sprites/spr_rizzi/spr_rizzi.yy",
   },
   "spriteMaskId":null,
   "visible":true,

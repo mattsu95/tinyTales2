@@ -1,7 +1,9 @@
 {
   "$GMObject":"",
   "%Name":"obj_vinicius",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"obj_vinicius",
   "overriddenProperties":[],
@@ -28,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_player_jump",
-    "path":"sprites/spr_player_jump/spr_player_jump.yy",
+    "name":"spr_boss_idle",
+    "path":"sprites/spr_boss_idle/spr_boss_idle.yy",
   },
   "spriteMaskId":null,
   "visible":true,

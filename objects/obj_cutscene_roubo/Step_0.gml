@@ -21,10 +21,17 @@ if (!ativado && !instance_exists(obj_gatilho_unioeste) && !instance_exists(obj_t
     if (!instance_exists(vini_inst)) {
         vini_inst = instance_create_depth(carro_inst.x - 100, carro_inst.y + 20, -100, obj_vinicius);
     }
-    vini_inst.sprite_index = spr_enemy_idle;
+    vini_inst.sprite_index = spr_boss_walk;
     vini_inst.image_xscale = -1; // Virado para a direita (em direção ao carro)
     
     timer_cutscene = 0;
+    
+    // Fala do Vinícius ao iniciar a cutscene
+    var _caixa_vini = instance_create_depth(0, 0, -9999, obj_textbox);
+    _caixa_vini.falas = [
+        { nome: "Vinícius", texto: "Fihh, isso aqui não é de bolo fihh! Tô indo pra Corbélia agora fihh!", maquina: true, tempo: 4 }
+    ];
+    
     etapa = 1;
 }
 
@@ -33,11 +40,11 @@ if (!ativado && !instance_exists(obj_gatilho_unioeste) && !instance_exists(obj_t
 if (etapa == 1) {
     if (instance_exists(vini_inst) && instance_exists(carro_inst)) {
         vini_inst.x += 0.9; // Caminhada mais devagar para ser vista com clareza
-        vini_inst.sprite_index = spr_enemy_move;
+        vini_inst.sprite_index = spr_boss_walk;
         
         // Quando Vinicius chega bem perto da porta do carro
         if (vini_inst.x >= carro_inst.x - 20) {
-            vini_inst.sprite_index = spr_enemy_idle;
+            vini_inst.sprite_index = spr_boss_walk;
             timer_cutscene++;
             
             // Pausa de 0.5s na porta antes de entrar
