@@ -378,7 +378,7 @@ p_cutscene = function() {
     image_speed = 1; 
     
     // Trava o player se QUALQUER um dos gatilhos/cutscenes existir!
-    if (!instance_exists(obj_cutscene_dog) and !instance_exists(obj_cutscene_enemy) and !instance_exists(obj_cutscene_bueiro) and !instance_exists(obj_gatilho_unioeste) and !instance_exists(obj_cutscene_roubo)) {
+    if (!instance_exists(obj_cutscene_dog) and !instance_exists(obj_cutscene_enemy) and !instance_exists(obj_cutscene_bueiro) and !instance_exists(obj_gatilho_unioeste) and !instance_exists(obj_cutscene_roubo) and !instance_exists(obj_cutscene_terminal)) {
         estado = p_idle;
     }
 }
