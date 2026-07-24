@@ -1,5 +1,10 @@
 randomize();
 
+global.muleta = false;
+
+sprite_punch1 = spr_player_punch1;
+sprite_punch2 = spr_player_punch2;
+
 // --- SISTEMA DE CHECKPOINT DA ROOM ---
 if (!variable_global_exists("checkpoint_room") || global.checkpoint_room != room) {
     global.checkpoint_room = room;
@@ -102,6 +107,7 @@ control_player = function() {
 	jump		= false; // Pulo desativado
 	attack		= mouse_check_button_pressed(mb_left);
 	roll_dice	= mouse_check_button(mb_right);
+	
 
 	if (tap_left_timer  > 0) tap_left_timer--;
 	if (tap_right_timer > 0) tap_right_timer--;
@@ -226,6 +232,11 @@ p_defend = function() {
 p_attack = function() {
 	velv = 0;
 	velh = 0;
+	
+	if (global.muleta) {
+		sprite_punch1 = spr_player_muleta1;
+		sprite_punch2 = spr_player_muleta2;
+	}
 	
 	
 	if (!attack_started) {
