@@ -56,6 +56,35 @@ run_dir = 0; // 0=nenhuma, 1=left, 2=right, 3=up, 4=down
 
 // --- SISTEMA DE INVENTÁRIO (Mesclado do Bloco 1) ---
 inventario = [];
+if (room == Terminal) {
+    array_push(inventario, {
+        nome: "Poção de Dano",
+        sprite: spr_pocao_dano,
+        objeto: obj_pocao,
+        efeito: "dano"
+    });
+    array_push(inventario, {
+        nome: "Poção de Cura",
+        sprite: spr_pocao,
+        objeto: obj_pocao,
+        efeito: "cura"
+    });
+} else if (room == corbelia) {
+    repeat (4) {
+        array_push(inventario, {
+            nome: "Poção de Dano",
+            sprite: spr_pocao_dano,
+            objeto: obj_pocao,
+            efeito: "dano"
+        });
+        array_push(inventario, {
+            nome: "Poção de Cura",
+            sprite: spr_pocao,
+            objeto: obj_pocao,
+            efeito: "cura"
+        });
+    }
+}
 mostrar_inventario = false;
 indice_selecionado = 0;
 dice_cooldown	   = 0;
