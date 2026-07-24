@@ -402,7 +402,7 @@ e_combo = function() {
     velh = 0;
     velv = 0;
 
-    set_sprite(spr_enemy_punch);
+    set_sprite(sprite_punch);
 
     alvo = checa_area(area_perseguicao, obj_player);
 

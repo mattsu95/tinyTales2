@@ -189,7 +189,9 @@ p_idle = function() {
 		estado = p_walk;
 	}
 	
-	if (attack && attack_cooldown <= 0 && !global.in_menu) { estado = p_attack; }
+	menu = variable_global_exists("in_menu") ? global.in_menu : false;
+	
+	if (attack && attack_cooldown <= 0 && !menu) { estado = p_attack; }
 	if (roll_dice && !inventario_vazio() && dice_cooldown <= 0) { estado = p_dice_roll; }
 }
 
@@ -205,7 +207,8 @@ p_walk = function() {
 		estado = p_idle;
 	}
 	
-	if (attack && attack_cooldown <= 0 && !global.in_menu) { estado = p_attack; }
+	menu = variable_global_exists("in_menu") ? global.in_menu : false;
+	if (attack && attack_cooldown <= 0 && menu) { estado = p_attack; }
 	if (roll_dice && !inventario_vazio() && dice_cooldown <= 0) { estado = p_dice_roll; }
 }
 

@@ -8,7 +8,7 @@ dado = instance_create_layer(x, y - 25, "Instances", obj_d6);
 dado.owner = id;
 
 image_speed = 0.7;
-image_xscale = 0.5;
+image_xscale = 1;
 image_yscale = 0.5;
 sprite_index = spr_enemy_idle;
 
@@ -23,12 +23,12 @@ cooldown_ataque_principal_max = game_get_speed(gamespeed_fps) * 3; // 3 segundos
 timer_ataque = cooldown_ataque_principal_max;
 tempo_recovery_max = game_get_speed(gamespeed_fps) * 1; // 1 segundo de parada
 
-sprite_idle = spr_enemy_idle;
-sprite_move = spr_enemy_move;
-sprite_punch = spr_enemy_punch;
-sprite_shoot = spr_enemy_punch;
-sprite_taunt = spr_enemy_idle;
-sprite_pulo = spr_enemy_idle;
+sprite_idle = spr_boss_idle;
+sprite_move = spr_boss_walk;
+sprite_punch = spr_boss_punch;
+sprite_shoot = spr_boss_punch;
+sprite_taunt = spr_boss_taunt;
+sprite_pulo = spr_boss_jump;
 
 projectile = obj_projectile;
 
@@ -197,4 +197,4 @@ mvSet_cake = function() {
 
 // move set atual
 mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_berserker, mvSet_cake];
-set_move_set(mvSet[1]);
+set_move_set(mvSet[2]);
