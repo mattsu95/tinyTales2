@@ -1,15 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_cutscene_enemy",
-  "eventList":[],
+  "%Name":"obj_neandertal",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_cutscene_enemy",
+  "name":"obj_neandertal",
   "overriddenProperties":[],
   "parent":{
     "name":"Enemy",
     "path":"folders/Objects/Enemy.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_enemy",
+    "path":"objects/obj_enemy/obj_enemy.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -28,9 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_varas_idle",
-    "path":"sprites/spr_varas_idle/spr_varas_idle.yy",
+    "name":"spr_neandertal_idle",
+    "path":"sprites/spr_neandertal_idle/spr_neandertal_idle.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_neandertal_idle",
+    "path":"sprites/spr_neandertal_idle/spr_neandertal_idle.yy",
+  },
   "visible":true,
 }

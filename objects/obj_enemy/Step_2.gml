@@ -101,8 +101,14 @@ with (obj_enemy) {
 }
 
 if (vida <= 0) {
-	instance_destroy();
-	exit;
+	vida = 0;
+	velv = 0;
+	velh = 0;
+	if sprite_morte != noone { estado = estado_morte; }
+	else { 
+		instance_destroy(); 
+		exit;
+	}
 }
 
 // MOVIMENTAÇÃO (SEM CLAMP ANTES - deixa fazer o movimento naturalmente)
