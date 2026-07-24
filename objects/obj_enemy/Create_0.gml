@@ -238,6 +238,7 @@ e_attack = function() {
 			if (alvo.parry_window > 0) {
 				audio_play_sound(parry_sfx, 1, false);
 				alvo.image_blend = make_colour_rgb(255, 220, 50);
+				alvo.parry_flash_timer = 8;
 				alvo.invincivel_timer = alvo.invincivel_max;
 				stun_ativo = true;
 				timer_stun = alvo.parry_stun_max;
@@ -446,6 +447,7 @@ e_combo = function() {
             if (alvo.parry_window > 0) {
 				audio_play_sound(parry_sfx, 1, false);
                 alvo.image_blend = make_colour_rgb(255,220,50);
+				alvo.parry_flash_timer = 8;
                 alvo.invincivel_timer = alvo.invincivel_max;
 
                 stun_ativo = true;

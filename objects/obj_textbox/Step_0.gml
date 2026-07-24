@@ -40,6 +40,11 @@ if (_tem_tempo_limite) {
 
 // 3. Teclas de atalho para avançar (Enter, Espaço ou Clique)
 var _apertou_avancar = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space) || mouse_check_button_pressed(mb_left);
+for (var _gp = 0; _gp < 4 && !_apertou_avancar; _gp++) {
+    if (gamepad_is_connected(_gp) && (gamepad_button_check_pressed(_gp, gp_face1) || gamepad_button_check_pressed(_gp, gp_start))) {
+        _apertou_avancar = true;
+    }
+}
 
 if (!ignorar_inputs && _apertou_avancar) {
     if (caractere_atual < string_length(_texto_completo)) {
