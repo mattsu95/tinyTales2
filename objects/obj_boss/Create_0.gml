@@ -99,7 +99,7 @@ set_move_set = function(_mv) {
 			combo_max = 2;
 			estado = e_search;
 		case mvSet_cake:
-			roll_timer_max = game_get_speed(gamespeed_fps) * 20;
+			roll_timer_max = game_get_speed(gamespeed_fps) * 5;
 	}
 }
 
@@ -197,4 +197,4 @@ mvSet_cake = function() {
 
 // move set atual
 mvSet = [mvSet_melee, mvSet_range, mvSet_parry, mvSet_darksouls, mvSet_berserker, mvSet_cake];
-set_move_set(mvSet[2]);
+set_move_set(choose(mvSet[0], mvSet[1], mvSet[2], mvSet[3], mvSet[4], mvSet[5]));
