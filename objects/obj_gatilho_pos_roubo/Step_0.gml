@@ -11,12 +11,12 @@ if (!ativado && !instance_exists(obj_cutscene_roubo) && obj_player.x >= x) {
     
     if (x < 4200) {
         _caixa.falas = [
-            { texto: "Vinícius levou seu carro para Corbélia!", maquina: false, tempo: 4 },
+            { texto: "Vinícius levou seu carro para Corbélia!", maquina: false, tempo: 3 },
             { texto: "Vá atrás e recupere ele!", maquina: false, tempo: 4 }
         ];
     } else {
         _caixa.falas = [
-            { texto: "Se equipe falando com o mercante.", maquina: false, tempo: 4 }
+            { texto: "Se equipe falando com o mercante.", maquina: false, tempo: 3 }
         ];
     }
     

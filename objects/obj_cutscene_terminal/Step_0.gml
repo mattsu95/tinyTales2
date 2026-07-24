@@ -7,7 +7,7 @@ if (etapa == 0) {
         
         var _caixa_init = instance_create_depth(0, 0, -9999, obj_textbox);
         _caixa_init.falas = [
-            { nome: "Tini", texto: "Pegue o primeiro ônibus", maquina: true, tempo: 3 }
+            { texto: "Pegue o ônibus pra corbélia que está aqui no terminal sul", maquina: true, tempo: 3 }
         ];
     }
     

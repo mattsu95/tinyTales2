@@ -8,7 +8,7 @@ if (alvo == noone && velh != 0) {
 }
 
 if (global.muleta) {
-	dano_por_hit += 10;
+	dano_por_hit *= 5;
 }
 
 // garante que nunca clipa para fora

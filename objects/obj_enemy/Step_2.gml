@@ -12,7 +12,7 @@ if (imunidade_stun > 0) {
 var _player = instance_nearest(x, y, obj_player);
 
 if (_player != noone) {
-	var _ataque_ativo = (_player.sprite_index == spr_player_punch1 || _player.sprite_index == spr_player_punch2);
+	var _ataque_ativo = (_player.sprite_index == _player.sprite_punch1 || _player.sprite_index == _player.sprite_punch2);
 	var _distancia = point_distance(x, y, _player.x, _player.y);
     var _novo_ataque = (_player.attack_sequence_id != ultimo_attack_id_recebido);
     

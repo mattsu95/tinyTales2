@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_enemy_idle",
-    "path":"sprites/spr_enemy_idle/spr_enemy_idle.yy",
+    "name":"spr_pelego1_idle",
+    "path":"sprites/spr_pelego1_idle/spr_pelego1_idle.yy",
   },
   "spriteMaskId":null,
   "visible":true,

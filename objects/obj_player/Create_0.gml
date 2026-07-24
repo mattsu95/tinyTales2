@@ -1,7 +1,3 @@
-randomize();
-
-global.muleta = false;
-
 sprite_punch1 = spr_player_punch1;
 sprite_punch2 = spr_player_punch2;
 
@@ -323,15 +319,15 @@ p_attack = function() {
 
 	    switch(combo_id) {
 	        case 0: // primeiro ataque
-	            sprite_index = spr_player_punch1;
+	            sprite_index = sprite_punch1;
 	            break;
 
 	        case 1: // segundo ataque
-	            sprite_index = spr_player_punch2;
+	            sprite_index = sprite_punch2;
 	            break;
 
 	        case 2: // terceiro ataque
-	            sprite_index = spr_player_punch1;
+	            sprite_index = sprite_punch1;
 	            break;
 			
 			default:

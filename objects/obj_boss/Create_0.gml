@@ -100,6 +100,8 @@ set_move_set = function(_mv) {
 			estado = e_search;
 		case mvSet_cake:
 			roll_timer_max = game_get_speed(gamespeed_fps) * 5;
+			velh = 0;
+			velv = 0;
 	}
 }
 

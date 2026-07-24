@@ -4,7 +4,7 @@ image_speed = 0.6;
 
 grav     = 0.5;
 
-vida_max = 20;
+vida_max = 30;
 vida = vida_max;
 
 dano_por_hit = 1;

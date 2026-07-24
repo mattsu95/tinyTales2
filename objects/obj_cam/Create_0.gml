@@ -1,6 +1,9 @@
 // pra melhorar a escolha aleatória
 randomize();
 
+display_set_gui_size(490, 270);
+global.muleta = false;
+
 ideal_width = 1280; 
 ideal_height = 720;
 

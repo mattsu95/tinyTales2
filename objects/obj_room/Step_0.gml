@@ -3,8 +3,8 @@ if (!inimigo1_criado) {
     var _in1 = instance_nearest(672, 160, obj_enemy);
     if (instance_exists(_in1) && point_distance(_in1.x, _in1.y, 672, 160) < 150) {
         inimigo1 = _in1;
-        inimigo1.vida_max = 5;
-        inimigo1.vida = 5;
+        inimigo1.vida_max = 10;
+        inimigo1.vida = 10;
         inimigo1_criado = true;
     }
 }
@@ -13,8 +13,8 @@ if (!inimigo2_criado) {
     var _in2 = instance_nearest(1152, 160, obj_enemy);
     if (instance_exists(_in2) && point_distance(_in2.x, _in2.y, 1152, 160) < 150) {
         inimigo2 = _in2;
-        inimigo2.vida_max = 15;
-        inimigo2.vida = 15;
+        inimigo2.vida_max = 20;
+        inimigo2.vida = 20;
         inimigo2_criado = true;
     }
 }
