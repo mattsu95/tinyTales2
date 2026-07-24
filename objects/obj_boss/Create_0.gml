@@ -177,6 +177,8 @@ mvSet_darksouls = function() {
 mvSet_berserker = function() {
 	dado.image_index = 4;
 	
+	estado_ofensivo = e_approach;
+	estado_ataque   = e_attack;
 	distancia_alvo	= 40 + irandom(30);
 	estado();
 	
