@@ -1,0 +1,12 @@
+{
+  "$GMFolder":"",
+  "%Name":"corbelia",
+  "children":[],
+  "filterType":"",
+  "folderName":"corbelia",
+  "isDefaultView":false,
+  "localisedFolderName":"",
+  "name":"corbelia",
+  "resourceType":"GMFolder",
+  "resourceVersion":"2.0"
+}

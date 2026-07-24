@@ -71,7 +71,13 @@ apply_effect = function() {
 	            break;
 
 	        case "dano":
-	            ent.vida -= 15;
+	            var _dano_pocao = 15;
+	            if (ent.object_index == pelego || object_is_ancestor(ent.object_index, pelego)) {
+	                _dano_pocao = ent.vida_max / 3;
+	            } else if (ent.object_index == obj_boss || object_is_ancestor(ent.object_index, obj_boss)) {
+	                _dano_pocao = ent.vida_max / 6;
+	            }
+	            ent.vida -= _dano_pocao;
 				if (ent.vida < 0) { ent.vida = 0; }
 	            break;
 	    }

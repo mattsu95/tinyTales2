@@ -1,3 +1,14 @@
+// Se a cutscene inicial de Corbélia estiver rodando, o Boss Vinícius aguarda parado em idle
+if (instance_exists(obj_cutscene_corbelia) && obj_cutscene_corbelia.etapa < 4) {
+    sprite_index = sprite_idle;
+    velh = 0;
+    velv = 0;
+    if (instance_exists(obj_player)) {
+        image_xscale = (x > obj_player.x) ? 1 : -1;
+    }
+    exit;
+}
+
 move_set();
 
 // só usa velh para virar quando não há alvo definido

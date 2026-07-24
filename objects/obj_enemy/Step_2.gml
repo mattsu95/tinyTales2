@@ -26,7 +26,9 @@ if (_player != noone) {
 			_player.timer_stun = parry_stun_max;
 			_player.estado = _player.p_stunned;
 		} else if (parry == false) {
-			vida -= dano_por_hit;
+			var _has_muleta = (variable_global_exists("muleta") && global.muleta);
+			var _dano_hit = _has_muleta ? 5 : dano_por_hit;
+			vida -= _dano_hit;
 			cooldown_dano = cooldown_dano_max;
 	        ultimo_attack_id_recebido = _player.attack_sequence_id;
 	        foi_atingido = true;

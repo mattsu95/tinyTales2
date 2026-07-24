@@ -1,6 +1,18 @@
 sprite_punch1 = spr_player_punch1;
 sprite_punch2 = spr_player_punch2;
 
+if (!variable_global_exists("muleta")) {
+    global.muleta = false;
+}
+
+if (room == Terminal || room == corbelia) {
+    global.muleta = true;
+}
+
+if (room == corbelia && !instance_exists(obj_cutscene_corbelia)) {
+    instance_create_depth(0, 0, -9999, obj_cutscene_corbelia);
+}
+
 // --- SISTEMA DE CHECKPOINT DA ROOM ---
 if (!variable_global_exists("checkpoint_room") || global.checkpoint_room != room) {
     global.checkpoint_room = room;
@@ -59,6 +71,12 @@ run_dir = 0; // 0=nenhuma, 1=left, 2=right, 3=up, 4=down
 // --- SISTEMA DE INVENTÁRIO (Mesclado do Bloco 1) ---
 inventario = [];
 if (room == Terminal) {
+    array_push(inventario, {
+        nome: "Poção de Dano",
+        sprite: spr_pocao_dano,
+        objeto: obj_pocao,
+        efeito: "dano"
+    });
     array_push(inventario, {
         nome: "Poção de Dano",
         sprite: spr_pocao_dano,
@@ -308,7 +326,7 @@ p_attack = function() {
 	velv = 0;
 	velh = 0;
 	
-	if (global.muleta) {
+	if (variable_global_exists("muleta") && global.muleta) {
 		sprite_punch1 = spr_player_muleta1;
 		sprite_punch2 = spr_player_muleta2;
 	}

@@ -93,7 +93,7 @@ if (ativado) {
                 var _caixa = instance_create_depth(0, 0, -9999, obj_textbox);
                 _caixa.falas = [
                     { nome: "Tini", texto: "NÃO... NÃO... NÃO!!", maquina: true, tempo: 2 },
-                    { nome: "Tini", texto: "PUTA MERDA, PERDI TUDO!", maquina: true, tempo: 2.5 },
+                    { nome: "Tini", texto: "Shit, PERDI TUDO!", maquina: true, tempo: 2.5 },
                     { nome: "Tini", texto: "Meus poderes do jogo passado... foram TODOS pro ralo!", maquina: true, tempo: 3.5 },
                     { nome: "Tini", texto: "Ai minha vida...", maquina: true, tempo: 2 }
                 ];

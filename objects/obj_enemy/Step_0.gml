@@ -7,10 +7,6 @@ if (alvo == noone && velh != 0) {
 	image_xscale = -sign(velh);
 }
 
-if (global.muleta) {
-	dano_por_hit *= 5;
-}
-
 // garante que nunca clipa para fora
 var _margem_x = 20;
 var _margem_y = 20;
