@@ -71,15 +71,15 @@ if (ativado) {
                 cam_h_atual = lerp(cam_h_atual, cam_h_padrao, 0.05);
                 camera_set_view_size(_cam, cam_w_atual, cam_h_atual);
                 
-                var _cam_x = camera_get_view_x(_cam);
-                var _cam_y = camera_get_view_y(_cam);
+                _cam_x = camera_get_view_x(_cam);
+                _cam_y = camera_get_view_y(_cam);
                 
                 // TRAVA O PLAYER NAS BORDAS DO MAPA! (Evita o fundo azul)
                 var _alvo_player_x = clamp(obj_player.x - (cam_w_atual / 2), 0, room_width - cam_w_atual);
                 var _alvo_player_y = clamp(obj_player.y - (cam_h_atual / 2), 0, room_height - cam_h_atual);
                 
-                var _novo_x = lerp(_cam_x, _alvo_player_x, 0.05);
-                var _novo_y = lerp(_cam_y, _alvo_player_y, 0.05);
+                _novo_x = lerp(_cam_x, _alvo_player_x, 0.05);
+                _novo_y = lerp(_cam_y, _alvo_player_y, 0.05);
                 
                 _novo_x = clamp(_novo_x, 0, room_width - cam_w_atual);
                 _novo_y = clamp(_novo_y, 0, room_height - cam_h_atual);
